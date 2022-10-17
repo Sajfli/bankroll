@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 
-// export type Children = { children: ReactElement | string }
 export type NodeChildren = {
     children: ReactElement | ReactElement[]
 }
