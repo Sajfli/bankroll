@@ -1,0 +1,37 @@
+{
+    "name": "bankroll",
+    "private": true,
+    "version": "0.1",
+    "type": "module",
+    "license": "AGPL-3.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.2.0",
+        "@fortawesome/free-solid-svg-icons": "^6.2.0",
+        "@fortawesome/react-fontawesome": "^0.2.0",
+        "classnames": "^2.3.2",
+        "interweave": "^13.0.0",
+        "ky": "^0.31.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^18.8.2",
+        "@types/react": "^18.0.17",
+        "@types/react-dom": "^18.0.6",
+        "@vitejs/plugin-react": "^2.1.0",
+        "eslint": "^8.25.0",
+        "eslint-config-react-app": "^7.0.1",
+        "prettier": "^2.7.1",
+        "prop-types": "^15.8.1",
+        "react-router-dom": "^6.4.1",
+        "sass": "^1.55.0",
+        "typescript": "^4.6.4",
+        "vite": "^3.1.0",
+        "vite-plugin-eslint": "^1.8.1"
+    }
+}

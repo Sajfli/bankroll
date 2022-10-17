@@ -1,0 +1,14 @@
+@use '@/utils/master' as m;
+
+.header {
+    width: 100%;
+    height: m.$header_height;
+    padding: 5px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: m.$colors_accent;
+}

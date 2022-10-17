@@ -1,0 +1,15 @@
+@use '@/utils/master' as m;
+
+#App {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content {
+    min-height: calc(
+        100vh - (m.$nav_height + m.$header_height + m.$header_height + 10px)
+    );
+}

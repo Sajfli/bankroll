@@ -1,0 +1,46 @@
+@use '@/utils/master' as m;
+
+.footer {
+    height: m.$footer_height;
+    width: 100%;
+
+    background-color: m.$colors_accent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.1rem;
+
+    a {
+        color: m.$font_color;
+        &:hover {
+            color: m.$font_color_noalpha;
+            text-decoration: underline;
+        }
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            margin: 0 5px;
+        }
+    }
+
+    div {
+        margin: 0 20px;
+    }
+
+    // .bg {
+    //     width: 100%;
+    //     height: $bgimage-size;
+
+    //     background-image: url('@/_res/img/bg.jpg');
+    //     background-position: top left;
+    //     background-size: $bgimage-size $bgimage-size;
+    //     background-attachment: fixed;
+    // }
+}
