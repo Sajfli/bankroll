@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from '@/pages/Home'
 import Stages from '@/pages/Stages'
+import Error from '@/pages/Error'
 
 const Router = () => {
     return (
@@ -8,9 +9,10 @@ const Router = () => {
             <Route path="/" element={<Home />} />
             <Route path="/etap/:stage" element={<Stages />} />
 
-            <Route path="/404" element={<div>404</div>} />
+            <Route path="/404" element={<Navigate replace to="/error/404" />} />
+            <Route path="/error/:err" element={<Error />} />
             <Route path="/api/*" element={<></>} />
-            <Route path="*" element={<Navigate replace to="/" />} />
+            <Route path="*" element={<Navigate replace to="/error/404" />} />
         </Routes>
     )
 }

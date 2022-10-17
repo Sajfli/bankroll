@@ -1,12 +1,13 @@
 import Loader from '../atoms/Loader'
 import style from './LoaderScreen.module.scss'
+import Frame from '../atoms/Frame'
 
 const LoaderScreen = () => {
     return (
-        <div className={style.loaderScreen}>
+        <Frame className={style.loaderScreen}>
             <Loader />
             <h1>Proszę czekać</h1>
-        </div>
+        </Frame>
     )
 }
 
