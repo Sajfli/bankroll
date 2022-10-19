@@ -9,7 +9,11 @@ const Frame = ({
 }: Children & {
     className?: string
 }) => {
-    return <div className={classnames('frame', className)}>{children}</div>
+    return (
+        <div className="frameKeeper">
+            <div className={classnames('frame', className)}>{children}</div>
+        </div>
+    )
 }
 
 Frame.propTypes = {

@@ -1,10 +1,13 @@
+.frameKeeper {
+    padding-top: 100px;
+}
+
 .frame {
     background-color: rgba(255, 255, 255, 0.01);
     padding: 50px;
     border-radius: 50px;
 
     width: 100%;
-    margin-top: 100px;
     display: flex;
     align-items: center;
     flex-direction: column;

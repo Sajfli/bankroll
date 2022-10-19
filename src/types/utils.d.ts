@@ -34,3 +34,12 @@ export type AuthContext = {
     isAuthed: boolean
     signIn: (user: User) => Promise<boolean>
 }
+
+export type BankAccount = {
+    bankName: string
+    bankImg: string
+    perks: string[]
+    link: string
+    accountName: string
+    accountId: string
+}
