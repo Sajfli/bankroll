@@ -15,11 +15,12 @@ const AuthProvider = ({ children }: NodeChildren) => {
     const [profilePicture, setProfilePicture] = useState<string | null>(null)
     const [stage, setStage] = useState<number>(1)
     const [isAuthed, setIsAuthed] = useState<boolean>(false)
+    const [userRole, setUserRole] = useState<'user' | 'admin'>('user')
 
     const signIn = (user: User): Promise<boolean> =>
         new Promise((resolve, reject) => {
             try {
-                const { _id, displayName, picture, stage } = user
+                const { _id, displayName, picture, stage, userRole } = user
 
                 if (!_id || !displayName) reject(false)
                 else {
@@ -27,6 +28,7 @@ const AuthProvider = ({ children }: NodeChildren) => {
                     if (picture) setProfilePicture(picture)
                     setIsAuthed(true)
                     setStage(stage || 1)
+                    setUserRole(userRole)
                     resolve(true)
                 }
             } catch (err) {
@@ -50,6 +52,7 @@ const AuthProvider = ({ children }: NodeChildren) => {
                     setProfilePicture(null)
                     setStage(1)
                     setIsAuthed(false)
+                    setUserRole('user')
                     resolve(true)
                 } else throw Error()
             } catch (error) {
@@ -80,6 +83,7 @@ const AuthProvider = ({ children }: NodeChildren) => {
                 profilePicture,
                 isAuthed,
                 stage,
+                userRole,
                 signIn,
                 signOut,
             }}

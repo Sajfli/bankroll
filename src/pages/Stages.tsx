@@ -17,15 +17,18 @@ const Stages = () => {
         const stage = +params.stage!
 
         if (stage === 1) return <Stage1 />
+
+        if (!auth.isAuthed)
+            localStorage.setItem(
+                'noAuthRedirFrom',
+                `${location.pathname} ${Date.now()}`
+            )
+
         if (
             !auth.stage ||
             typeof auth.stage !== 'number' ||
             auth.stage < stage
         ) {
-            localStorage.setItem(
-                'noAuthRedirFrom',
-                `${location.pathname} ${Date.now()}`
-            )
             return <Navigate to="/" />
         } else return <Stage stage={stage} />
     }

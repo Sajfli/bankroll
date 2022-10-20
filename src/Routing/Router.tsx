@@ -3,13 +3,31 @@ import Home from '@/pages/Home'
 import Stages from '@/pages/Stages'
 import Error from '@/pages/Error'
 import Profile from '@/pages/Profile'
+import Panel from '@/pages/Panel'
+
+import CheckPerm from '@/utils/CheckPerm'
 
 const Router = () => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/etap/:stage" element={<Stages />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+                path="/profile"
+                element={
+                    <CheckPerm returnIfAuth={true}>
+                        <Profile />
+                    </CheckPerm>
+                }
+            />
+            <Route
+                path="/panel"
+                element={
+                    <CheckPerm returnIfAuth={true}>
+                        <Panel />
+                    </CheckPerm>
+                }
+            />
 
             <Route path="/404" element={<Navigate replace to="/error/404" />} />
             <Route path="/error/:err" element={<Error />} />

@@ -10,6 +10,7 @@ import {
     faMoneyBill,
     faRightFromBracket,
     faUser,
+    faBook,
 } from '@fortawesome/free-solid-svg-icons'
 import useAuth from '@/hooks/useAuth'
 
@@ -56,9 +57,12 @@ const Header = () => {
               },
     ]
 
-    // useEffect(() => {
-    //     console.log(auth.isAuthed)
-    // }, [auth.isAuthed])
+    if (auth.isAuthed && auth.userRole === 'admin')
+        paths.push({
+            location: '/panel',
+            label: 'Panel',
+            icon: faBook,
+        })
 
     return (
         <>

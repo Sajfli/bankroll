@@ -1,5 +1,4 @@
 import { iconDefinition } from '@fortawesome/free-solid-svg-icons'
-import { NodeChildren } from './children'
 
 export type Subpath = {
     label: string
@@ -33,6 +32,7 @@ export type AuthContext = {
     profilePicture?: string | null
     stage?: number
     isAuthed: boolean
+    userRole?: 'user' | 'admin'
     signIn: (user: User) => Promise<boolean>
     signOut: () => Promise<boolean>
 }

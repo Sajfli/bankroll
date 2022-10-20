@@ -9,11 +9,6 @@ const Home = () => {
     useEffect(() => {
         let mounted = true
 
-        console.log(
-            auth.isAuthed ? 'authed' : 'not authed',
-            localStorage.getItem('noAuthRedirFrom')
-        )
-
         if (auth.isAuthed) {
             const redirTo = localStorage.getItem('noAuthRedirFrom')
             if (redirTo) {

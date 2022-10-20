@@ -1,5 +1,4 @@
 import { NodeChildrenType } from '@/types/children'
-import Button from './Button'
 import style from './Modals.module.scss'
 
 const ConfirmModal = ({
