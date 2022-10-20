@@ -12,10 +12,8 @@ a {
     min-height: calc(
         100vh - (m.$nav_height + m.$header_height + m.$header_height + 10px)
     );
-}
 
-.content {
-    margin: 30px auto;
+    margin: 0 auto;
 
     padding: 40px;
 
