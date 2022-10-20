@@ -1,0 +1,55 @@
+@use '@/utils/master' as m;
+
+$border-radius: 8px;
+$border-size: 2px;
+
+.button {
+    min-width: 100px;
+    width: fit-content;
+    height: 40px;
+
+    padding: 5px 10px;
+
+    cursor: pointer;
+
+    outline: none;
+
+    font-size: 1rem;
+
+    border: $border-size solid transparent;
+    background-color: m.$colors_accent;
+    border-radius: $border-radius;
+
+    position: relative;
+
+    transform: scale(1);
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+
+    &::before {
+        position: absolute;
+        top: -$border-size;
+        left: -$border-size;
+        width: calc(100% + $border-size * 2);
+        height: calc(100% + $border-size * 2);
+        content: '';
+        border-radius: $border-radius;
+        z-index: -1;
+        box-shadow: 0 0 5px -1px m.$colors_accent;
+        opacity: 0;
+
+        transition: opacity 0.2s;
+    }
+
+    &:hover {
+        background-color: transparent;
+        border-color: m.$colors_accent;
+
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}

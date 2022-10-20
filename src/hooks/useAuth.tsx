@@ -7,12 +7,13 @@ import propTypes from 'prop-types'
 const AuthContext = createContext<AuthContextType>({
     isAuthed: false,
     signIn: (user: User) => new Promise((resolve, reject) => reject(false)),
+    signOut: () => new Promise((resolve, reject) => reject(false)),
 })
 
 const AuthProvider = ({ children }: NodeChildren) => {
     const [profileName, setProfileName] = useState<string | null>(null)
     const [profilePicture, setProfilePicture] = useState<string | null>(null)
-    const [stage, setStage] = useState<Number>(1)
+    const [stage, setStage] = useState<number>(1)
     const [isAuthed, setIsAuthed] = useState<boolean>(false)
 
     const signIn = (user: User): Promise<boolean> =>
@@ -29,6 +30,29 @@ const AuthProvider = ({ children }: NodeChildren) => {
                     resolve(true)
                 }
             } catch (err) {
+                reject(false)
+            }
+        })
+
+    const signOut = (): Promise<boolean> =>
+        new Promise(async (resolve, reject) => {
+            if (!isAuthed) return resolve(false)
+
+            try {
+                const response = await ky.get(
+                    '/api/v1/account/facebook/logout?bg=true'
+                )
+
+                const content = (await response.json()) as { ok: boolean }
+
+                if (content.ok) {
+                    setProfileName(null)
+                    setProfilePicture(null)
+                    setStage(1)
+                    setIsAuthed(false)
+                    resolve(true)
+                } else throw Error()
+            } catch (error) {
                 reject(false)
             }
         })
@@ -57,6 +81,7 @@ const AuthProvider = ({ children }: NodeChildren) => {
                 isAuthed,
                 stage,
                 signIn,
+                signOut,
             }}
         >
             {children}

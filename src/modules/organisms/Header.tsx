@@ -39,11 +39,11 @@ const Header = () => {
             : {
                   label: auth.profileName!.split(' ')[0],
                   image: auth.profilePicture,
-                  location: '#',
+                  location: '/profile',
                   subpaths: [
                       {
                           label: 'Profil',
-                          location: '#aaa',
+                          location: '/profile',
                           icon: faUser,
                       },
                       {
