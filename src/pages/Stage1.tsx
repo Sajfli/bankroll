@@ -5,7 +5,7 @@ const Stage1 = () => {
     return (
         <div className="stage">
             <article>
-                <h1 className="stage_header">Etap 1 - Początek!</h1>
+                <h1>Etap 1 - Początek!</h1>
                 <figure className="quote">
                     <blockquote>
                         <q>
@@ -39,9 +39,7 @@ const Stage1 = () => {
                 </div>
 
                 <div className="part">
-                    <h2 className="stage_header">
-                        Co to są programy partnerskie?
-                    </h2>
+                    <h2>Co to są programy partnerskie?</h2>
                     <p>
                         Programy partnerskie pozwalają zarabiać w sieci za
                         pomocą innowacyjnych narzędzi, które porównują produkty
@@ -58,7 +56,7 @@ const Stage1 = () => {
                         naszym narzędziom oraz pomocy będzie to bardzo proste i
                         efektywne! Kto może z nami zarabiać?
                     </p>
-                    <h3 className="stage_header">
+                    <h3>
                         Aby dołączyć do zespołu musisz spełniać poniższe
                         warunki:
                     </h3>
@@ -130,7 +128,7 @@ const Stage1 = () => {
                 </div>
 
                 <div className="part">
-                    <h2 className="stage_header">Na czym polega praca?</h2>
+                    <h2>Na czym polega praca?</h2>
                     <p>
                         W naszym projekcie skupiamy się na wypełnianiu prostych
                         wniosków oraz testowaniu i korzystaniu z bezpłatnych
@@ -145,7 +143,7 @@ const Stage1 = () => {
                         pozyskujesz nowe umiejętności!
                     </p>
 
-                    <h3 className="stage_header">Etapy:</h3>
+                    <h3>Etapy:</h3>
                     <ul className="stages">
                         <li>
                             <b>Etap 1: </b>Przedstawiam Ci dokładanie na czym
@@ -178,9 +176,7 @@ const Stage1 = () => {
                 </div>
 
                 <div className="part">
-                    <h2 className="stage_header">
-                        Co jeszcze musisz wiedziec?
-                    </h2>
+                    <h2>Co jeszcze musisz wiedziec?</h2>
                     <p>
                         <Link to="/faq">Najczęściej zadawane pytania</Link>
                     </p>
@@ -205,9 +201,7 @@ const Stage1 = () => {
                         wszystkim pomóc najlepiej jak potrafię!
                     </p>
 
-                    <h4 className="stage_header">
-                        Pamiętaj - dla nas liczy się zespół!
-                    </h4>
+                    <h4>Pamiętaj - dla nas liczy się zespół!</h4>
 
                     <q>
                         Praca zespołowa to paliwo, które pozwala zwykłym ludziom
@@ -223,7 +217,7 @@ const Stage1 = () => {
                     </p>
                 </div>
                 <div className="part">
-                    <h2 className="stage_header">Rejestracja w Comperialead</h2>
+                    <h2>Rejestracja w Comperialead</h2>
                     <p>
                         Pierwszy etap to właśnie pierwszy krok do wielkiej
                         zmiany w Twoim życiu! Pamiętaj, że etap 1 (REJESTRACJA)

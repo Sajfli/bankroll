@@ -22,6 +22,8 @@ $border-size: 2px;
 
     position: relative;
 
+    color: m.$font_color;
+
     transform: scale(1);
     transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
 

@@ -30,7 +30,7 @@ const Banks = () => {
 
     if (content) {
         return (
-            <Table>
+            <Table bankAccounts={true}>
                 <tbody>
                     {content.map(
                         ({

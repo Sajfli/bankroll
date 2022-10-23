@@ -27,3 +27,19 @@ a {
     max-width: 1200px;
     min-width: 400px;
 }
+
+.defaultFormatting {
+    .header {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        line-height: 1.8rem;
+    }
+}
