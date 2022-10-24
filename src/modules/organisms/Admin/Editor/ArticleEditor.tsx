@@ -28,14 +28,19 @@ const ArticleEditor = () => {
                     id: genKey(_contents),
                 })
                 break
-            case 'quote':
+            case 'blockquote':
                 _contents.push({
-                    type: 'quote',
+                    type: 'blockquote',
                     value: [
                         {
                             type: 'quote',
                             value: '',
                             id: genKey([1]),
+                        },
+                        {
+                            type: 'author',
+                            value: '',
+                            id: genKey([1, 2]),
                         },
                     ],
                     id: genKey(_contents),
@@ -48,28 +53,33 @@ const ArticleEditor = () => {
         setContents(_contents)
     }
 
-    const handlePartAdd = (
-        index: number,
-        value: string,
-        _contents: Editor.ContentType
-    ) => {
+    const handlePartAdd = (value: string, _contents: Editor.ContentType) => {
         const id = genKey(_contents.value)
 
-        if (value === 'list')
-            _contents.value.push({
-                type: 'list',
-                values: [
-                    { id: genKey([1]), value: '' },
-                    { id: genKey([1, 2]), value: '' },
-                ],
-                id,
-            })
-        else
-            _contents.value.push({
-                type: 'paragraph',
-                value: '',
-                id,
-            })
+        switch (value) {
+            case 'list':
+                _contents.value.push({
+                    type: 'list',
+                    values: [
+                        { id: genKey([1]), value: '' },
+                        { id: genKey([1, 2]), value: '' },
+                    ],
+                    id,
+                })
+                break
+            case 'paragraph':
+                _contents.value.push({
+                    type: 'paragraph',
+                    value: '',
+                    id,
+                })
+                break
+            case 'quote':
+                _contents.value.push({
+                    type: 'quote',
+                    id,
+                })
+        }
 
         return _contents
     }
@@ -115,11 +125,7 @@ const ArticleEditor = () => {
 
             switch (action) {
                 case 'add':
-                    _contents[index] = handlePartAdd(
-                        index,
-                        value,
-                        _contents[index]
-                    )
+                    _contents[index] = handlePartAdd(value, _contents[index])
                     break
                 case 'modify':
                     if (target === 'header') _contents[index].header = value
@@ -173,8 +179,10 @@ const ArticleEditor = () => {
                         {contents.map(({ type, value, id }) => {
                             switch (type) {
                                 case 'part':
+                                default:
                                     return (
                                         <EditorBlock
+                                            type={type}
                                             key={id}
                                             value={value}
                                             handleContentModify={handleContentModify(
@@ -186,8 +194,6 @@ const ArticleEditor = () => {
                                             )}
                                         />
                                     )
-                                default:
-                                    return null
                             }
                         })}
                     </ReactSortable>
@@ -196,10 +202,7 @@ const ArticleEditor = () => {
                 <div className={style.add}>
                     <h2>Dodaj...</h2>
                     <Button onClick={() => handleContentAdd('part')}>
-                        Part
-                    </Button>
-                    <Button onClick={() => handleContentAdd('quote')}>
-                        Cytat
+                        Blok
                     </Button>
                     <Button onClick={() => handleContentAdd('blockquote')}>
                         Cytat blokowy

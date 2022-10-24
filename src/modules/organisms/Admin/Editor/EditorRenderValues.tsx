@@ -1,10 +1,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+
 import style from './Editor.module.scss'
 
 import * as Editor from '@/types/editor'
 import EditorList from '@/modules/molecules/Admin/Editor/EditorList'
 import EditorParagraph from '@/modules/molecules/Admin/Editor/EditorParagraph'
+import EditorQuote from '@/modules/molecules/Admin/Editor/EditorQuote'
+import EditorAuthor from '@/modules/molecules/Admin/Editor/EditorAuthor'
+
+const typeToRemoveMessage = (type: Editor.ContentValueType['type']) => {
+    switch (type) {
+        case 'list':
+            return 'tę listę'
+        case 'paragraph':
+            return 'ten paragraf'
+        case 'quote':
+            return 'ten cytat'
+        default:
+            return 'ten element'
+    }
+}
 
 const RenderValuesWrapper = ({
     children,
@@ -12,24 +29,31 @@ const RenderValuesWrapper = ({
     id,
     handleRemoveModal,
     handleRemove,
+    blockType,
 }: Editor.RenderValuesWrapperType) => (
     <div className={style.value}>
-        <div className={style.inputs}>{children}</div>
-        <div className={style.icons}>
-            <FontAwesomeIcon
-                icon={faXmark}
-                className={style.removeIcon}
-                onClick={() => {
-                    handleRemoveModal(
-                        type === 'list' ? 'tę listę' : 'ten paragraf',
-                        () => {
-                            handleRemove(id)
-                        }
-                    )
-                }}
-            />
-            <FontAwesomeIcon icon={faBars} className={style.draggable} />
+        <div
+            className={classNames(
+                style.inputs,
+                blockType === 'part' && style.part
+            )}
+        >
+            {children}
         </div>
+        {blockType === 'part' && (
+            <div className={style.icons}>
+                <FontAwesomeIcon
+                    icon={faXmark}
+                    className={style.removeIcon}
+                    onClick={() => {
+                        handleRemoveModal(typeToRemoveMessage(type), () => {
+                            handleRemove(id)
+                        })
+                    }}
+                />
+                <FontAwesomeIcon icon={faBars} className={style.draggable} />
+            </div>
+        )}
     </div>
 )
 
@@ -59,6 +83,10 @@ const ContentTypeSelector = ({
                     listType={listType}
                 />
             )
+        case 'quote':
+            return <EditorQuote initHandler={initHandler} id={id} />
+        case 'author':
+            return <EditorAuthor initHandler={initHandler} id={id} />
         default:
             return null
     }
@@ -72,10 +100,12 @@ const RenderValues = ({
     handleRemoveModal,
     handleRemove,
     initHandler,
+    blockType,
 }: Editor.ContentValueType & {
     handleRemoveModal: Editor.HandleRemoveModalType
     handleRemove: (id: string) => void
     initHandler: Editor.InitHandlerType
+    blockType: Editor.ContentTypes
 }) => {
     return (
         <RenderValuesWrapper
@@ -83,6 +113,7 @@ const RenderValues = ({
             id={id}
             handleRemove={handleRemove}
             handleRemoveModal={handleRemoveModal}
+            blockType={blockType}
         >
             <div className={style.inputs}>
                 <ContentTypeSelector

@@ -20,8 +20,10 @@ const EditorBlock = ({
     handleContentModify,
     setContent,
     handleBlockRemove,
+    type: __type,
 }: {
     value: Editor.ContentValueType[]
+    type: Editor.ContentTypes
     handleContentModify: any
     setContent?: (values: Editor.ContentValueType[]) => void
     handleBlockRemove?: () => void
@@ -148,13 +150,18 @@ const EditorBlock = ({
     return (
         <div className={classNames(style.contentBlock)}>
             <div>
+                <h2 style={{ marginBottom: 0, textTransform: 'capitalize' }}>
+                    {__type}
+                </h2>
                 <div>
-                    <TextInput
-                        label="Tytuł bloku"
-                        handleInput={(val) =>
-                            handleContentModify('modify', val, 'header')
-                        }
-                    />
+                    {__type === 'part' ? (
+                        <TextInput
+                            label="Tytuł bloku"
+                            handleInput={(val) =>
+                                handleContentModify('modify', val, 'header')
+                            }
+                        />
+                    ) : null}
                 </div>
 
                 {value && (
@@ -166,7 +173,7 @@ const EditorBlock = ({
                         delayOnTouchOnly={true}
                         className={style.valuesList}
                         handle={`.${style.draggable}`}
-                        group="valueElements"
+                        group={__type === 'part' ? 'valueElements' : undefined}
                     >
                         {value.map(({ type, values, id, listType }) => (
                             <RenderValues
@@ -178,27 +185,37 @@ const EditorBlock = ({
                                 handleRemove={handleRemove}
                                 handleRemoveModal={handleRemoveModal}
                                 initHandler={initHandler}
+                                blockType={__type}
                             />
                         ))}
                     </ReactSortable>
                 )}
 
-                <div className={style.buttons}>
-                    <Button
-                        onClick={() => {
-                            handleContentModify('add', 'paragraph')
-                        }}
-                    >
-                        Dodaj paragraf
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            handleContentModify('add', 'list')
-                        }}
-                    >
-                        Dodaj liste
-                    </Button>
-                </div>
+                {__type === 'part' && (
+                    <div className={style.buttons}>
+                        <Button
+                            onClick={() => {
+                                handleContentModify('add', 'paragraph')
+                            }}
+                        >
+                            Dodaj paragraf
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                handleContentModify('add', 'list')
+                            }}
+                        >
+                            Dodaj liste
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                handleContentModify('add', 'quote')
+                            }}
+                        >
+                            Dodaj cytat
+                        </Button>
+                    </div>
+                )}
             </div>
             <div className={style.actionBlock}>
                 <div>
