@@ -1,4 +1,4 @@
-import { Children } from '@/types/children'
+import { NodeChildrenType } from '@/types/children'
 import classnames from 'classnames'
 
 import style from './Button.module.scss'
@@ -6,8 +6,9 @@ import style from './Button.module.scss'
 type ButtonProps = {
     className?: string
     type?: 'button' | 'submit'
+    children: NodeChildrenType | NodeChildrenType[] | string
     [x: string]: any
-} & Children
+}
 
 const Button = ({ children, type, className, ...rest }: ButtonProps) => {
     return (

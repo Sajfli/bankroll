@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Button from '@/modules/atoms/Button'
 import TextInput from '@/modules/atoms/TextInput'
 import { ReactSortable } from 'react-sortablejs'
@@ -8,24 +8,12 @@ import classNames from 'classnames'
 
 import genKey from '@/utils/genKey'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useModal from '@/hooks/useModal'
 import ConfirmModal from '@/modules/atoms/ConfirmModal'
+import RenderValues from './EditorRenderValues'
 
-type ContentValueType = {
-    type: 'paragraph' | 'list'
-    value: string | string[]
-    id: string
-}
-
-type ContentTypes = 'part' | 'quote' | 'blockquote' | 'module'
-
-type ContentType = {
-    type: ContentTypes
-    header: string
-    value: ContentValueType[]
-    id: string
-}
+import * as Editor from '@/types/editor'
 
 const ContentPart = ({
     value,
@@ -33,21 +21,24 @@ const ContentPart = ({
     setContent,
     handleBlockRemove,
 }: {
-    value: ContentValueType[]
+    value: Editor.ContentValueType[]
     handleContentModify: any
-    setContent?: (values: ContentValueType[]) => void
+    setContent?: (values: Editor.ContentValueType[]) => void
     handleBlockRemove?: () => void
 }) => {
     const modal = useModal()
 
-    const handleBlockRemoveModal = () => {
+    const handleRemoveModal = (
+        whatToRemove: string,
+        removeFunction: () => void
+    ) => {
         modal.setContent(
             <ConfirmModal
-                question="Czy na pewno chcesz usunąć ten blok?"
+                question={`Czy na pewno chcesz usunąć ${whatToRemove}`}
                 ConfirmButton={
                     <Button
                         onClick={() => {
-                            if (!!handleBlockRemove) handleBlockRemove()
+                            removeFunction()
                             modal.hide()
                         }}
                     >
@@ -60,16 +51,86 @@ const ContentPart = ({
         modal.show()
     }
 
-    const handleParagraphChange = (paragraphId: string, val: string) => {
-        if (!setContent) return console.error('no content updater')
-
+    const initHandler = (id: string) => {
         const _value = [...value]
-        const index = _value.findIndex(({ id }) => id === paragraphId)
-        if (index < 0) return
+        const index = _value.findIndex(({ id: _id }) => id === _id)
 
-        _value[index].value = val
+        const update = (value: Editor.ContentValueType[]) => {
+            if (!setContent) return console.error('no content updater')
+            setContent!(value)
+        }
 
-        setContent!(_value)
+        const handleParagraphChange = (val: string) => {
+            if (index < 0) return
+            _value[index].value = val
+
+            update(_value)
+        }
+
+        const handleListChange = (id: string, val: string) => {
+            if (index < 0) return
+
+            if (!_value[index].values) return
+
+            const i = _value[index].values!.findIndex(
+                ({ id: _id }) => id === _id
+            )
+            if (i < 0) return
+
+            _value[index].values![i].value = val
+
+            update(_value)
+        }
+
+        const handleListTypeChange = (type: 'ul' | 'ol') => {
+            if (index < 0) return
+            if (!_value[index].listType || _value[index].listType !== type)
+                _value[index].listType = type
+            update(_value)
+        }
+
+        const handleListOrderChange = (
+            newOrder: { id: string; value: string }[]
+        ) => {
+            if (index < 0) return
+            _value[index].values = newOrder
+            update(_value)
+        }
+
+        const handleListRemove = (id: string) => {
+            if (index < 0 || !_value[index].values) return
+
+            const i = _value[index].values!.findIndex(
+                ({ id: _id }) => id === _id
+            )
+            if (i < 0) return
+
+            _value[index].values!.splice(i, 1)
+
+            update(_value)
+        }
+
+        const handleListAdd = () => {
+            if (index < 0) return
+            if (!_value[index].values || !Array.isArray(_value[index].values))
+                _value[index].values = []
+
+            _value[index].values!.push({
+                id: genKey(_value[index].values!),
+                value: '',
+            })
+
+            update(_value)
+        }
+
+        return {
+            handleParagraphChange,
+            handleListChange,
+            handleListTypeChange,
+            handleListOrderChange,
+            handleListRemove,
+            handleListAdd,
+        }
     }
 
     const handleRemove = (id: string) => {
@@ -105,40 +166,19 @@ const ContentPart = ({
                         delayOnTouchOnly={true}
                         className={style.valuesList}
                         handle={`.${style.draggable}`}
+                        group="valueElements"
                     >
-                        {value.map(({ type, value, id }) => (
-                            <div key={id} className={classNames(style.value)}>
-                                {type === 'paragraph' ? (
-                                    <textarea
-                                        className={style.input}
-                                        onInput={(e) => {
-                                            const target =
-                                                e.target as HTMLInputElement
-
-                                            handleParagraphChange(
-                                                id,
-                                                target.value
-                                            )
-                                        }}
-                                    ></textarea>
-                                ) : (
-                                    <div>lista</div>
-                                )}
-
-                                <div className={style.icons}>
-                                    <FontAwesomeIcon
-                                        icon={faXmark}
-                                        className={style.removeIcon}
-                                        onClick={() => {
-                                            handleRemove(id)
-                                        }}
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={faBars}
-                                        className={style.draggable}
-                                    />
-                                </div>
-                            </div>
+                        {value.map(({ type, values, id, listType }) => (
+                            <RenderValues
+                                key={id}
+                                type={type}
+                                id={id}
+                                values={values}
+                                listType={listType}
+                                handleRemove={handleRemove}
+                                handleRemoveModal={handleRemoveModal}
+                                initHandler={initHandler}
+                            />
                         ))}
                     </ReactSortable>
                 )}
@@ -165,7 +205,12 @@ const ContentPart = ({
                     <FontAwesomeIcon
                         icon={faXmark}
                         className={style.removeIcon}
-                        onClick={handleBlockRemoveModal}
+                        onClick={() => {
+                            handleRemoveModal('ten blok', () => {
+                                if (!!handleBlockRemove) handleBlockRemove()
+                            })
+                        }}
+                        // onClick={handleBlockRemoveModal}
                     />
                 </div>
                 <div className={style.draggableBlock}></div>
@@ -175,9 +220,13 @@ const ContentPart = ({
 }
 
 const ArticleEditor = () => {
-    const [contents, setContents] = useState<ContentType[] | null>(null)
+    const [contents, setContents] = useState<Editor.ContentType[] | null>(null)
 
-    const handleContentAdd = (type: ContentTypes) => {
+    useEffect(() => {
+        console.log(contents)
+    }, [contents])
+
+    const handleContentAdd = (type: Editor.ContentTypes) => {
         const _contents = contents ? [...contents] : []
 
         switch (type) {
@@ -186,6 +235,19 @@ const ArticleEditor = () => {
                     header: '',
                     type,
                     value: [],
+                    id: genKey(_contents),
+                })
+                break
+            case 'quote':
+                _contents.push({
+                    type: 'quote',
+                    value: [
+                        {
+                            type: 'quote',
+                            value: '',
+                            id: genKey([1]),
+                        },
+                    ],
                     id: genKey(_contents),
                 })
                 break
@@ -199,14 +261,17 @@ const ArticleEditor = () => {
     const handlePartAdd = (
         index: number,
         value: string,
-        _contents: ContentType
+        _contents: Editor.ContentType
     ) => {
         const id = genKey(_contents.value)
 
         if (value === 'list')
             _contents.value.push({
                 type: 'list',
-                value: [],
+                values: [
+                    { id: genKey([1]), value: '' },
+                    { id: genKey([1, 2]), value: '' },
+                ],
                 id,
             })
         else
@@ -220,7 +285,7 @@ const ArticleEditor = () => {
     }
 
     const updateContentValue = (
-        contentValue: ContentValueType[],
+        contentValue: Editor.ContentValueType[],
         value: string,
         id: string
     ) => {
@@ -236,7 +301,7 @@ const ArticleEditor = () => {
         if (!contents) return
         const index = contents.findIndex(({ id: _id }) => id === _id)
         if (index < 0) return
-        return (values: ContentValueType[]) => {
+        return (values: Editor.ContentValueType[]) => {
             const _contents = [...contents]
             _contents[index].value = values
             setContents(_contents)

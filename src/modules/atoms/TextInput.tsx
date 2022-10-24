@@ -6,6 +6,7 @@ type TextInputProps = {
     label: string
     containerClassName?: string
     handleInput?: (value: string) => void
+    defaultValue?: string
     [x: string]: any
 }
 
@@ -13,15 +14,20 @@ const TextInput = ({
     label,
     containerClassName,
     handleInput,
+    defaultValue,
     ...rest
 }: TextInputProps) => {
     const [focused, setFocused] = useState<boolean>(false)
-    const [value, setValue] = useState<string>('')
+    const [value, setValue] = useState<string>(defaultValue || '')
 
     const handleFocusChange = (change: boolean) => {
         if (change) setFocused(true)
         if (!change && value === '') setFocused(false)
     }
+
+    useEffect(() => {
+        if (defaultValue) handleFocusChange(true)
+    }, [defaultValue])
 
     useEffect(() => {
         if (!!handleInput) handleInput(value)

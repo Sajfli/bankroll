@@ -1,0 +1,26 @@
+@use '@/utils/master' as m;
+
+.textarea {
+    width: 300px;
+    min-width: 200px;
+    max-width: 600px;
+    height: 100px;
+    max-height: 500px;
+
+    outline: none;
+
+    padding: 10px;
+    font-size: 0.9rem;
+    line-height: 1rem;
+
+    border: 2px solid rgba(m.$colors_accent, 0.5);
+
+    background-color: rgba(50, 50, 50, 0.6);
+
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+    &:focus {
+        border-color: m.$colors_accent;
+        background-color: rgba(50, 50, 50, 0.8);
+    }
+}
