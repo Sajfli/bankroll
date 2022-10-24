@@ -1,4 +1,4 @@
-import ArticleEditor from '@/modules/organisms/Admin/ArticleEditor'
+import ArticleEditor from '@/modules/organisms/Admin/Editor/ArticleEditor'
 
 const NewArticle = () => {
     return (
