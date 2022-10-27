@@ -1,22 +1,9 @@
-import { InitHandlerType, EditorId } from '@/types/editor'
+import { Handler } from '@/types/editor'
 
 import EditorSimple from './EditorSimple'
 
-const EditorAuthor = ({
-    id,
-    initHandler,
-}: {
-    id: EditorId
-    initHandler: InitHandlerType
-}) => {
-    return (
-        <EditorSimple
-            id={id}
-            initHandler={initHandler}
-            simpleInput={true}
-            label="Autor"
-        />
-    )
+const EditorAuthor = ({ handler }: { handler: Handler }) => {
+    return <EditorSimple handler={handler} simpleInput={true} label="Autor" />
 }
 
 export default EditorAuthor

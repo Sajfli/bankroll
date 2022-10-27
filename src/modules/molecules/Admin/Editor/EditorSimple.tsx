@@ -1,16 +1,14 @@
 import style from '@/modules/organisms/Admin/Editor/Editor.module.scss'
 import TextArea from '@/modules/atoms/TextArea'
 
-import { InitHandlerType, EditorId } from '@/types/editor'
+import { Handler } from '@/types/editor'
 
 const EditorSimple = ({
-    id,
-    initHandler,
+    handler,
     label,
     simpleInput,
 }: {
-    id: EditorId
-    initHandler: InitHandlerType
+    handler: Handler
     label: string
     simpleInput?: boolean
 }) => {
@@ -24,7 +22,7 @@ const EditorSimple = ({
                         onInput={(e) => {
                             const target = e.target as HTMLInputElement
 
-                            initHandler(id).handleParagraphChange(target.value)
+                            handler.handleParagraphChange(target.value)
                         }}
                         rows={simpleInput ? 1 : undefined}
                         style={

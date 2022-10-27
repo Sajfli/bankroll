@@ -1,15 +1,8 @@
-import { EditorId, InitHandlerType } from '@/types/editor'
+import { Handler } from '@/types/editor'
 import FileInput from '../../FileInput'
-import style from './EditorInputs.module.scss'
 
-const EditorImage = ({
-    initHandler,
-    id,
-}: {
-    initHandler: InitHandlerType
-    id: EditorId
-}) => {
-    return <FileInput handleFileChange={initHandler(id).handleFileChange} />
+const EditorImage = ({ handler }: { handler: Handler }) => {
+    return <FileInput handleFileChange={handler.handleFileChange} />
 }
 
 export default EditorImage

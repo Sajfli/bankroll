@@ -124,6 +124,16 @@ const ArticleEditor = () => {
                     value: '',
                 })
                 break
+            case 'rl':
+                _contents.value.push({
+                    type: 'rl',
+                    id,
+                    leftRight: {
+                        left: [],
+                        right: [],
+                    },
+                })
+                break
             default:
                 break
         }

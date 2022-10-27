@@ -53,76 +53,168 @@ const EditorBlock = ({
         modal.show()
     }
 
-    const initHandler = (id: string) => {
+    const initHandler: Editor.InitHandlerType = (id, rl) => {
         const _value = [...value]
         const index = _value.findIndex(({ id: _id }) => id === _id)
 
-        const update = (value: Editor.ContentValueType[]) => {
+        const addToOrRemoveFromList = (removeId?: string) => {
+            if (
+                rl &&
+                (!rl.side ||
+                    !_value[index].leftRight ||
+                    typeof rl.i === 'undefined')
+            )
+                return
+
+            const value = rl
+                ? _value[index].leftRight![rl.side][rl.i]
+                : _value[index]
+
+            let values: Editor.ContentValueType['values'] = value.values || []
+
+            if (value.values && Array.isArray(value.values))
+                values = value.values as Editor.ContentValueType['values']
+
+            if (removeId) {
+                const i = values!.findIndex(({ id }) => id === removeId)
+
+                if (i < 0) return
+
+                values!.splice(i, 1)
+            } else
+                values!.push({
+                    id: genKey(values!),
+                    value: '',
+                })
+
+            if (rl) _value[index].leftRight![rl.side][rl.i].values = values
+            else _value[index].values = values
+
+            update(_value)
+        }
+
+        const setValue = ({
+            array,
+            property,
+            value,
+            values,
+            listType,
+            id,
+        }: {
+            array: Editor.ContentValueType[]
+            property: 'value' | 'values' | 'listType'
+            value?: Editor.ContentValueType['value']
+            values?: Editor.ContentValueType['values']
+            listType?: Editor.ContentValueType['listType']
+            id?: string
+        }) => {
+            const _array = [...array]
+            const _value = _array[index]
+
+            const _set = (
+                prop: 'value' | 'values' | 'listType',
+                val: any,
+                i?: number
+            ) => {
+                if (typeof i !== 'undefined') {
+                    if (prop !== 'values') return
+                    if (!rl) _value[prop]![i].value = val
+                    else if (_value.leftRight)
+                        _value.leftRight[rl.side][rl.i][prop][i].value = val
+                } else {
+                    if (!rl) _value[prop] = val
+                    else if (_value.leftRight)
+                        _value.leftRight[rl.side][rl.i][prop] = val
+                }
+            }
+
+            if (property === 'value' && value) {
+                _set(property, value)
+            } else if (property === 'values' && values) {
+                _set(property, values)
+            } else if (property === 'listType' && listType) {
+                _set(property, listType)
+            } else if (property === 'values' && value) {
+                if (!id || (!rl && !_value.values)) return null
+                if (rl && !_value.leftRight![rl.side][rl.i].values) return null
+
+                var i: number
+                if (!rl)
+                    i = _value.values!.findIndex(({ id: _id }) => id === _id)
+                else
+                    i = _value.leftRight![rl.side][rl.i].values.findIndex(
+                        ({ id: _id }: { id: Editor.EditorId }) => id === _id
+                    )
+
+                if (i < 0) return null
+
+                _set(property, value, i)
+            }
+
+            _array[index] = _value
+            update(_array)
+        }
+
+        const update = (value: Editor.ContentValueType[] | null) => {
+            if (!value) return
             if (!setContent) return console.error('no content updater')
-            setContent!(value)
+            setContent(value)
         }
 
         const handleParagraphChange = (val: string) => {
             if (index < 0) return
-            _value[index].value = val
-
-            update(_value)
+            setValue({
+                array: _value,
+                property: 'value',
+                value: val,
+            })
         }
 
         const handleListChange = (id: string, val: string) => {
             if (index < 0) return
 
-            if (!_value[index].values) return
-
-            const i = _value[index].values!.findIndex(
-                ({ id: _id }) => id === _id
-            )
-            if (i < 0) return
-
-            _value[index].values![i].value = val
-
-            update(_value)
+            setValue({
+                array: _value,
+                property: 'values',
+                value: val,
+                id,
+            })
         }
 
         const handleListTypeChange = (type: 'ul' | 'ol') => {
             if (index < 0) return
-            if (!_value[index].listType || _value[index].listType !== type)
-                _value[index].listType = type
-            update(_value)
+
+            if (_value[index].listType && _value[index].listType === type)
+                return
+
+            setValue({
+                array: _value,
+                property: 'listType',
+                listType: type,
+            })
         }
 
         const handleListOrderChange = (
             newOrder: { id: string; value: string }[]
         ) => {
             if (index < 0) return
-            _value[index].values = newOrder
-            update(_value)
+            setValue({
+                array: _value,
+                values: newOrder,
+                property: 'values',
+            })
         }
 
         const handleListRemove = (id: string) => {
             if (index < 0 || !_value[index].values) return
 
-            const i = _value[index].values!.findIndex(
-                ({ id: _id }) => id === _id
-            )
-            if (i < 0) return
-
-            _value[index].values!.splice(i, 1)
-
-            update(_value)
+            addToOrRemoveFromList(id)
         }
 
         const handleListAdd = () => {
             if (index < 0) return
-            if (!_value[index].values || !Array.isArray(_value[index].values))
-                _value[index].values = []
 
-            _value[index].values!.push({
-                id: genKey(_value[index].values!),
-                value: '',
-            })
-
-            update(_value)
+            addToOrRemoveFromList()
         }
 
         const handleModuleSelect = (module: Editor.Modules) => {
@@ -133,7 +225,65 @@ const EditorBlock = ({
 
         const handleFileChange = (file: File) => {
             if (index < 0) return
-            _value[index].value = file
+            setValue({
+                array: _value,
+                property: 'value',
+                value: file,
+            })
+        }
+
+        const handleRlAdd = (
+            side: 'right' | 'left',
+            type: Editor.ContentValueType['type']
+        ) => {
+            if (index < 0) return
+            if (!_value[index].leftRight) return
+            if (['rl ', 'module', 'author'].includes(type)) return
+            if (_value[index].leftRight![side].length > 3) return
+
+            type CreateContentValue = (
+                type: Editor.ContentValueType['type'],
+                n: number
+            ) => Editor.ContentValueType
+
+            const createContentValue: CreateContentValue = (type, n) => {
+                const id = genKey(Array.from(Array(n).keys()))
+
+                switch (type) {
+                    case 'paragraph':
+                    case 'quote':
+                    case 'file':
+                        return { id, value: '', type }
+                    case 'list':
+                        return { id, values: [], type }
+                    default:
+                        return { id, type: 'paragraph', value: '' }
+                }
+            }
+
+            const length =
+                _value[index].leftRight!.left.length +
+                _value[index].leftRight!.right.length
+
+            _value[index].leftRight![side].push(
+                createContentValue(type, length)
+            )
+            update(_value)
+        }
+
+        const handleRlOrderChange = (
+            side: 'left' | 'right',
+            newState: Editor.ContentValueType[]
+        ) => {
+            if (
+                index < 0 ||
+                !side ||
+                !_value[index].leftRight ||
+                !_value[index].leftRight![side]
+            )
+                return
+
+            _value[index].leftRight![side] = newState
             update(_value)
         }
 
@@ -146,6 +296,8 @@ const EditorBlock = ({
             handleListAdd,
             handleModuleSelect,
             handleFileChange,
+            handleRlAdd,
+            handleRlOrderChange,
         }
     }
 
@@ -189,19 +341,22 @@ const EditorBlock = ({
                         handle={`.${style.draggable}`}
                         group={__type === 'part' ? 'valueElements' : undefined}
                     >
-                        {value.map(({ type, values, id, listType }) => (
-                            <RenderValues
-                                key={id}
-                                type={type}
-                                id={id}
-                                values={values}
-                                listType={listType}
-                                handleRemove={handleRemove}
-                                handleRemoveModal={handleRemoveModal}
-                                initHandler={initHandler}
-                                blockType={__type}
-                            />
-                        ))}
+                        {value.map(
+                            ({ type, values, id, listType, leftRight }) => (
+                                <RenderValues
+                                    key={id}
+                                    type={type}
+                                    id={id}
+                                    values={values}
+                                    listType={listType}
+                                    handleRemove={handleRemove}
+                                    handleRemoveModal={handleRemoveModal}
+                                    initHandler={initHandler}
+                                    blockType={__type}
+                                    leftRight={leftRight}
+                                />
+                            )
+                        )}
                     </ReactSortable>
                 )}
 
@@ -234,6 +389,13 @@ const EditorBlock = ({
                             }}
                         >
                             Dodaj zdjęcie
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                handleContentModify('add', 'rl')
+                            }}
+                        >
+                            Dodaj rl
                         </Button>
                     </div>
                 )}

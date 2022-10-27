@@ -1,15 +1,9 @@
-import { InitHandlerType, EditorId } from '@/types/editor'
+import { Handler } from '@/types/editor'
 
 import EditorSimple from './EditorSimple'
 
-const EditorQuote = ({
-    id,
-    initHandler,
-}: {
-    id: EditorId
-    initHandler: InitHandlerType
-}) => {
-    return <EditorSimple id={id} initHandler={initHandler} label="Cytat" />
+const EditorQuote = ({ handler }: { handler: Handler }) => {
+    return <EditorSimple handler={handler} label="Cytat" />
 }
 
 export default EditorQuote

@@ -11,6 +11,7 @@ import EditorQuote from '@/modules/molecules/Admin/Editor/EditorQuote'
 import EditorAuthor from '@/modules/molecules/Admin/Editor/EditorAuthor'
 import EditorModule from '@/modules/molecules/Admin/Editor/EditorModule'
 import EditorImage from '@/modules/molecules/Admin/Editor/EditorImage'
+import EditorRl from '@/modules/molecules/Admin/Editor/EditorRl'
 
 const typeToRemoveMessage = (type: Editor.ContentValueType['type']) => {
     switch (type) {
@@ -32,6 +33,8 @@ const RenderValuesWrapper = ({
     handleRemoveModal,
     handleRemove,
     blockType,
+    customGrabHandle,
+    rlId,
 }: Editor.RenderValuesWrapperType) => (
     <div className={style.value}>
         <div
@@ -49,50 +52,71 @@ const RenderValuesWrapper = ({
                     className={style.removeIcon}
                     onClick={() => {
                         handleRemoveModal(typeToRemoveMessage(type), () => {
-                            handleRemove(id)
+                            handleRemove(rlId || id)
                         })
                     }}
                 />
-                <FontAwesomeIcon icon={faBars} className={style.draggable} />
+                <FontAwesomeIcon
+                    icon={faBars}
+                    className={classNames({
+                        [`${style.draggable}`]: !customGrabHandle,
+                        [`${style.draggable__nohandle}`]: !!customGrabHandle,
+                        [`${customGrabHandle}`]: !!customGrabHandle,
+                    })}
+                />
             </div>
         )}
     </div>
 )
 
 type ContentTypeSelectorProps = {
+    handler: Editor.Handler
     initHandler: Editor.InitHandlerType
-    id: Editor.ContentValueType['id']
     values: Editor.ContentValueType['values']
     listType: Editor.ContentValueType['listType']
     type: Editor.ContentValueType['type']
+    leftRight: Editor.ContentValueType['leftRight']
+    id: Editor.EditorId
 }
 const ContentTypeSelector = ({
+    handler,
     initHandler,
-    id,
     values,
     listType,
     type,
+    leftRight,
+    id,
 }: ContentTypeSelectorProps) => {
     switch (type) {
         case 'paragraph':
-            return <EditorParagraph initHandler={initHandler} id={id} />
+            return <EditorParagraph handler={handler} />
         case 'list':
             return (
                 <EditorList
-                    initHandler={initHandler}
-                    id={id}
+                    handler={handler}
                     values={values}
                     listType={listType}
                 />
             )
         case 'quote':
-            return <EditorQuote initHandler={initHandler} id={id} />
+            return <EditorQuote handler={handler} />
         case 'author':
-            return <EditorAuthor initHandler={initHandler} id={id} />
+            return <EditorAuthor handler={handler} />
         case 'module':
-            return <EditorModule initHandler={initHandler} id={id} />
+            return <EditorModule handler={handler} />
         case 'image':
-            return <EditorImage initHandler={initHandler} id={id} />
+        case 'file':
+            // TODO: Add optional figcaption
+            return <EditorImage handler={handler} />
+        case 'rl':
+            return (
+                <EditorRl
+                    id={id}
+                    handler={handler}
+                    initHandler={initHandler}
+                    leftRight={leftRight}
+                />
+            )
         default:
             return null
     }
@@ -107,11 +131,18 @@ const RenderValues = ({
     handleRemove,
     initHandler,
     blockType,
+    leftRight,
+    rl,
+    customGrabHandle,
+    rlId,
 }: Editor.ContentValueType & {
     handleRemoveModal: Editor.HandleRemoveModalType
     handleRemove: (id: string) => void
     initHandler: Editor.InitHandlerType
     blockType: Editor.ContentTypes
+    rl?: { side: 'left' | 'right'; i: number }
+    customGrabHandle?: string
+    rlId?: Editor.EditorId
 }) => {
     return (
         <RenderValuesWrapper
@@ -120,18 +151,23 @@ const RenderValues = ({
             handleRemove={handleRemove}
             handleRemoveModal={handleRemoveModal}
             blockType={blockType}
+            customGrabHandle={customGrabHandle}
+            rlId={rlId}
         >
             <div className={style.inputs}>
                 <ContentTypeSelector
                     type={type}
-                    id={id}
+                    handler={initHandler(id, rl)}
                     initHandler={initHandler}
                     values={values}
                     listType={listType}
+                    leftRight={leftRight}
+                    id={id}
                 />
             </div>
         </RenderValuesWrapper>
     )
 }
 
+export { ContentTypeSelector }
 export default RenderValues

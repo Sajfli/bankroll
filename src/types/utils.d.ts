@@ -59,7 +59,9 @@ export type ModalContext = {
     hide: () => void
     isOpen: boolean
     content: NodeChildrenType | null
-    setContent: (child: NodeChildrenType) => void
+    setContent: (child: NodeChildrenType) => {
+        show: ModalContext['show']
+    }
 }
 
 // Toast context

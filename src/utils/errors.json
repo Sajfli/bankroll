@@ -5,5 +5,6 @@
     "unknown500": "Wystąpił nieznany błąd serwera",
     "duplicate_article_name": "Ta nazwa artykułu jest już zajęta",
     "no_article": "Nie wysłano artykułu",
-    "invalid_title_or_name": "Niepoprawna nazwa lub tytuł"
+    "invalid_title_or_name": "Niepoprawna nazwa lub tytuł",
+    "invalid_data": "Błędne dane"
 }

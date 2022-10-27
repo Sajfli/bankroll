@@ -6,7 +6,9 @@ import { ModalContext as ModalContextType } from '@/types/utils'
 const ModalContext = createContext<ModalContextType>({
     show: () => {},
     hide: () => {},
-    setContent: (child: NodeChildrenType) => {},
+    setContent: (child: NodeChildrenType) => ({
+        show: () => {},
+    }),
     isOpen: false,
     content: null,
 })
@@ -21,7 +23,10 @@ const ModalProvider = ({ children }: NodeChildren) => {
         setModalState(false)
     }
 
-    const setContent = (children: NodeChildrenType) => _setContent(children)
+    const setContent = (children: NodeChildrenType) => {
+        _setContent(children)
+        return { show }
+    }
 
     return (
         <ModalContext.Provider

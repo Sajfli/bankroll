@@ -9,16 +9,20 @@ export type ContentValueType = {
         | 'list'
         | 'quote'
         | 'image'
-        | 'rl_image'
+        | 'rl'
         | 'author'
         | 'module'
         | 'file'
     listType?: 'ul' | 'ol'
     value?: string | File
     values?: {
-        id: string
+        id: EditorId
         value: string
     }[]
+    leftRight?: {
+        left: ContentValueType[]
+        right: ContentTypeType[]
+    }
     moduleName?: Modules | null
     id: EditorId
 }
@@ -37,7 +41,7 @@ export type HandleRemoveModalType = (
     remove: () => void
 ) => void
 
-export type InitHandlerType = (id: EditorId) => {
+export type Handler = {
     handleParagraphChange: (val: string) => void
     handleListChange: (id: EditorId, val: string) => void
     handleListTypeChange: (type: 'ul' | 'ol') => void
@@ -51,7 +55,22 @@ export type InitHandlerType = (id: EditorId) => {
     handleListAdd: () => void
     handleModuleSelect: (module: Modules) => void
     handleFileChange: (file: File) => void
+    handleRlAdd: (
+        side: 'left' | 'right',
+        type: EditorId.ContentValueType['type']
+    ) => void
+    handleRlOrderChange: (
+        side: 'left' | 'right',
+        newState: ContentValueType[]
+    ) => void
 }
+
+export type Rl = {
+    side: 'right' | 'left'
+    i: number
+}
+
+export type InitHandlerType = (id: EditorId, rl?: Rl) => Handler
 
 export type RenderValuesWrapperType = {
     children: React.ReactNode
@@ -60,4 +79,6 @@ export type RenderValuesWrapperType = {
     handleRemoveModal: handleRemoveModalType
     handleRemove: (id: EditorId) => void
     blockType: ContentTypes
+    customGrabHandle?: string
+    rlId: Id
 }

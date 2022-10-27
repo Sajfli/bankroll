@@ -1,0 +1,48 @@
+.editor_rl {
+    .group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .left,
+        .right {
+            flex: 1;
+            min-width: 360px;
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        .list {
+            textarea {
+                max-width: 100% !important;
+            }
+
+            $border: 2px dashed rgba(0, 0, 0, 0.5);
+
+            min-height: 50px;
+            margin: 20px 0;
+
+            border-top: $border;
+            border-bottom: $border;
+
+            // & > div {
+            //     margin: 20px 10px;
+            //     font-size: 0.9rem;
+            //     padding: 10px 0;
+            // }
+        }
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        button {
+            font-size: 0.8rem;
+            line-height: 0.8rem;
+            width: 100px;
+            // height: 20px;
+            margin: 5px 0;
+        }
+    }
+}

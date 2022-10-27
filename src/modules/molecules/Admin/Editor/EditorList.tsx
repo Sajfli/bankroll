@@ -10,13 +10,12 @@ import style from '@/modules/organisms/Admin/Editor/Editor.module.scss'
 import * as Editor from '@/types/editor'
 
 type EditorListProps = {
-    initHandler: Editor.InitHandlerType
+    handler: Editor.Handler
     listType: Editor.ContentValueType['listType']
     values: Editor.ContentValueType['values']
-    id: Editor.ContentValueType['id']
 }
 
-const EditorList = ({ initHandler, listType, values, id }: EditorListProps) => {
+const EditorList = ({ handler, listType, values }: EditorListProps) => {
     return (
         <div>
             <b>Lista</b>
@@ -27,9 +26,7 @@ const EditorList = ({ initHandler, listType, values, id }: EditorListProps) => {
                         let value = e.target.value
                         if (!['ul', 'ol'].includes(value)) value = 'ul'
 
-                        initHandler(id).handleListTypeChange(
-                            value as 'ol' | 'ul'
-                        )
+                        handler.handleListTypeChange(value as 'ol' | 'ul')
                     }}
                     value={listType || 'ul'}
                 >
@@ -41,7 +38,7 @@ const EditorList = ({ initHandler, listType, values, id }: EditorListProps) => {
             {values && (
                 <ReactSortable
                     list={values}
-                    setList={initHandler(id).handleListOrderChange}
+                    setList={handler.handleListOrderChange}
                     className={style.listInputs}
                     handle={`.${style.draggableListElement}`}
                     animation={200}
@@ -60,7 +57,7 @@ const EditorList = ({ initHandler, listType, values, id }: EditorListProps) => {
                                             e.target as HTMLTextAreaElement
                                         ).value
 
-                                        initHandler(id).handleListChange(
+                                        handler.handleListChange(
                                             listElementId,
                                             value
                                         )
@@ -82,9 +79,7 @@ const EditorList = ({ initHandler, listType, values, id }: EditorListProps) => {
                                         style.removeIcon
                                     )}
                                     onClick={() => {
-                                        initHandler(id).handleListRemove(
-                                            listElementId
-                                        )
+                                        handler.handleListRemove(listElementId)
                                     }}
                                 />
                             </div>
@@ -95,7 +90,7 @@ const EditorList = ({ initHandler, listType, values, id }: EditorListProps) => {
             <Button
                 className={style.listAddButton}
                 onClick={() => {
-                    initHandler(id).handleListAdd()
+                    handler.handleListAdd()
                 }}
             >
                 <>
