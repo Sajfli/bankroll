@@ -125,6 +125,18 @@ const EditorBlock = ({
             update(_value)
         }
 
+        const handleModuleSelect = (module: Editor.Modules) => {
+            if (index < 0) return
+            _value[index].moduleName = module
+            update(_value)
+        }
+
+        const handleFileChange = (file: File) => {
+            if (index < 0) return
+            _value[index].value = file
+            update(_value)
+        }
+
         return {
             handleParagraphChange,
             handleListChange,
@@ -132,6 +144,8 @@ const EditorBlock = ({
             handleListOrderChange,
             handleListRemove,
             handleListAdd,
+            handleModuleSelect,
+            handleFileChange,
         }
     }
 
@@ -213,6 +227,13 @@ const EditorBlock = ({
                             }}
                         >
                             Dodaj cytat
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                handleContentModify('add', 'image')
+                            }}
+                        >
+                            Dodaj zdjęcie
                         </Button>
                     </div>
                 )}

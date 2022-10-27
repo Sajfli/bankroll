@@ -9,6 +9,8 @@ import EditorList from '@/modules/molecules/Admin/Editor/EditorList'
 import EditorParagraph from '@/modules/molecules/Admin/Editor/EditorParagraph'
 import EditorQuote from '@/modules/molecules/Admin/Editor/EditorQuote'
 import EditorAuthor from '@/modules/molecules/Admin/Editor/EditorAuthor'
+import EditorModule from '@/modules/molecules/Admin/Editor/EditorModule'
+import EditorImage from '@/modules/molecules/Admin/Editor/EditorImage'
 
 const typeToRemoveMessage = (type: Editor.ContentValueType['type']) => {
     switch (type) {
@@ -87,6 +89,10 @@ const ContentTypeSelector = ({
             return <EditorQuote initHandler={initHandler} id={id} />
         case 'author':
             return <EditorAuthor initHandler={initHandler} id={id} />
+        case 'module':
+            return <EditorModule initHandler={initHandler} id={id} />
+        case 'image':
+            return <EditorImage initHandler={initHandler} id={id} />
         default:
             return null
     }

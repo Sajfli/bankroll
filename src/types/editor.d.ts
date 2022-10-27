@@ -1,13 +1,25 @@
+import EditorModules from '@/utils/ArticleModules'
+
 export type EditorId = string
+export type Modules = typeof EditorModules[number]
 
 export type ContentValueType = {
-    type: 'paragraph' | 'list' | 'quote' | 'author'
+    type:
+        | 'paragraph'
+        | 'list'
+        | 'quote'
+        | 'image'
+        | 'rl_image'
+        | 'author'
+        | 'module'
+        | 'file'
     listType?: 'ul' | 'ol'
-    value?: string
+    value?: string | File
     values?: {
         id: string
         value: string
     }[]
+    moduleName?: Modules | null
     id: EditorId
 }
 
@@ -37,6 +49,8 @@ export type InitHandlerType = (id: EditorId) => {
     ) => void
     handleListRemove: (id: EditorId) => void
     handleListAdd: () => void
+    handleModuleSelect: (module: Modules) => void
+    handleFileChange: (file: File) => void
 }
 
 export type RenderValuesWrapperType = {

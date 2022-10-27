@@ -19,12 +19,14 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-sortablejs": "^6.1.4",
+        "react-toastify": "^9.0.8",
         "sortablejs": "^1.15.0"
     },
     "devDependencies": {
         "@types/node": "^18.8.2",
         "@types/react": "^18.0.17",
         "@types/react-dom": "^18.0.6",
+        "@types/react-toastify": "^4.1.0",
         "@types/sortablejs": "^1.15.0",
         "@vitejs/plugin-react": "^2.1.0",
         "eslint": "^8.25.0",

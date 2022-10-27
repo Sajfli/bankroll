@@ -1,4 +1,11 @@
 import { iconDefinition } from '@fortawesome/free-solid-svg-icons'
+import {
+    Id,
+    ToastOptions,
+    ToastPromiseParams,
+    UpdateOptions,
+} from 'react-toastify'
+import { stages } from '@/utils/stages'
 
 export type Subpath = {
     label: string
@@ -54,3 +61,22 @@ export type ModalContext = {
     content: NodeChildrenType | null
     setContent: (child: NodeChildrenType) => void
 }
+
+// Toast context
+export type ToastFunction = (msg: string, options?: ToastOptions) => Id
+export type ToastPromiseFunction = (
+    resolve: Promise<any>,
+    params: ToastPromiseParams
+) => any
+export type ToastContextType = {
+    warn: ToastFunction
+    info: ToastFunction
+    success: ToastFunction
+    error: ToastFunction
+    promise: ToastPromiseFunction
+    loading: ToastFunction
+    update: (id: Id, options: UpdateOptions) => void
+}
+
+// stage type
+export type Stage = typeof stages[number]

@@ -1,4 +1,9 @@
 {
     "404": "Nie znaleziono",
-    "500": "Nieoczekiwany błąd serwera"
+    "500": "Nieoczekiwany błąd serwera",
+    "unknown": "Wystąpił nieznany błąd",
+    "unknown500": "Wystąpił nieznany błąd serwera",
+    "duplicate_article_name": "Ta nazwa artykułu jest już zajęta",
+    "no_article": "Nie wysłano artykułu",
+    "invalid_title_or_name": "Niepoprawna nazwa lub tytuł"
 }

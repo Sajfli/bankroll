@@ -1,4 +1,4 @@
-import Router from '@/Routing/Router'
+import { Outlet } from 'react-router-dom'
 import './App.scss'
 
 import Header from '@/modules/organisms/Header'
@@ -12,7 +12,7 @@ function App() {
             <Header />
             <div className="content">
                 <main>
-                    <Router />
+                    <Outlet />
                 </main>
             </div>
             <Footer />

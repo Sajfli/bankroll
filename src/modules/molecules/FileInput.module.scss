@@ -1,0 +1,48 @@
+@use '@/utils/master' as m;
+
+.fileInput {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .preview {
+        max-width: 300px;
+
+        margin-top: 15px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .input {
+        display: none;
+    }
+
+    .label {
+        div {
+            padding: 10px;
+            background-color: transparent;
+            cursor: pointer;
+            font-weight: 700;
+            border-radius: 10px;
+
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            border: 2px solid rgba(m.$colors_accent, 0.8);
+
+            transition: border-color 0.2s, background-color 0.2s;
+
+            &:hover {
+                border-color: m.$colors_accent;
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+        }
+        // background-color: red;
+    }
+
+    // background-color: red;
+}

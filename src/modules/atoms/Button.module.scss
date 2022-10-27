@@ -10,8 +10,6 @@ $border-size: 2px;
 
     padding: 5px 10px;
 
-    cursor: pointer;
-
     outline: none;
 
     font-size: 1rem;
@@ -26,6 +24,14 @@ $border-size: 2px;
 
     transform: scale(1);
     transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+
+    &:disabled {
+        opacity: 0.5;
+    }
+
+    &:not(:disabled) {
+        cursor: pointer;
+    }
 
     &::before {
         position: absolute;
@@ -42,7 +48,7 @@ $border-size: 2px;
         transition: opacity 0.2s;
     }
 
-    &:hover {
+    &:not(:disabled):hover {
         background-color: transparent;
         border-color: m.$colors_accent;
 
@@ -51,7 +57,7 @@ $border-size: 2px;
         }
     }
 
-    &:active {
+    &:not(:disabled):active {
         transform: scale(0.95);
     }
 }

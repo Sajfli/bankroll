@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ReactSortable } from 'react-sortablejs'
 import genKey from '@/utils/genKey'
 
@@ -8,13 +9,36 @@ import EditorBlock from './EditorBlock'
 
 import style from './Editor.module.scss'
 import * as Editor from '@/types/editor'
+import cleanEditorData from '@/utils/cleanEditorData'
+import ky from 'ky'
+import { Stage } from '@/types/utils'
+import { isStageCorrect } from '@/utils/stages'
+import useToast, { standardUpdateOptions } from '@/hooks/useToat'
+import handleKyError from '@/utils/handleKyError'
+import handleError from '@/utils/handleError'
 
 const ArticleEditor = () => {
     const [contents, setContents] = useState<Editor.ContentType[] | null>(null)
+    const [name, setName] = useState<string>('')
+    const [title, setTitle] = useState<string>('')
+    const [requiredStage, setRequiredStage] = useState<Stage>(1)
+    const [canSubmit, setCanSubmit] = useState<boolean>(false)
+    const [isPending, setIsPending] = useState<boolean>(false)
+
+    const toast = useToast()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(contents)
-    }, [contents])
+        if (
+            name.length > 0 &&
+            title.length > 0 &&
+            contents &&
+            contents.length > 0 &&
+            !isPending
+        )
+            setCanSubmit(true)
+        else setCanSubmit(false)
+    }, [contents, name, title, isPending])
 
     const handleContentAdd = (type: Editor.ContentTypes) => {
         const _contents = contents ? [...contents] : []
@@ -41,6 +65,19 @@ const ArticleEditor = () => {
                             type: 'author',
                             value: '',
                             id: genKey([1, 2]),
+                        },
+                    ],
+                    id: genKey(_contents),
+                })
+                break
+            case 'module':
+                _contents.push({
+                    type: 'module',
+                    value: [
+                        {
+                            type: 'module',
+                            moduleName: null,
+                            id: genKey([1]),
                         },
                     ],
                     id: genKey(_contents),
@@ -79,6 +116,16 @@ const ArticleEditor = () => {
                     type: 'quote',
                     id,
                 })
+                break
+            case 'image':
+                _contents.value.push({
+                    type: 'image',
+                    id,
+                    value: '',
+                })
+                break
+            default:
+                break
         }
 
         return _contents
@@ -160,12 +207,114 @@ const ArticleEditor = () => {
         }
     }
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (!contents || !name || !title || !requiredStage) return
+        setIsPending(true)
+
+        const sendArticle = () =>
+            new Promise(async (resolve, reject) => {
+                const body = new FormData()
+                let files: File[] = []
+
+                const _content: Editor.ContentType[] = []
+
+                for (let i in contents) {
+                    const { cleaned, files: _files } = cleanEditorData(
+                        contents[i]
+                    )
+
+                    if (_files) files = [...files, ..._files]
+
+                    _content.push(cleaned)
+                }
+
+                body.append(
+                    'article',
+                    JSON.stringify({
+                        name,
+                        title,
+                        requiredStage,
+                        content: _content,
+                    })
+                )
+
+                for (let i in files) {
+                    body.append('file', files[i], `file_${i}`)
+                }
+
+                try {
+                    const response = await ky.post('/api/v1/content/article', {
+                        body,
+                    })
+                    const resp = (await response.json()) as any
+                    if (resp.ok) resolve(resp)
+                    else throw Error()
+                } catch (err) {
+                    reject(err)
+                }
+
+                setIsPending(false)
+            })
+
+        const toastId = toast.loading('Trwa zapisywanie artykułu')
+        try {
+            const resp = (await sendArticle()) as any
+
+            if (!resp.ok) throw Error()
+
+            toast.update(toastId, {
+                ...standardUpdateOptions,
+                type: 'success',
+                render: 'Artykuł został zapisany',
+            })
+            navigate('/panel/articles')
+        } catch (err: any) {
+            if (
+                !handleKyError(err, (status, msg) => {
+                    toast.update(toastId, {
+                        ...standardUpdateOptions,
+                        type: 'error',
+                        render: handleError(msg ? msg : status),
+                    })
+                })
+            )
+                toast.update(toastId, {
+                    ...standardUpdateOptions,
+                    type: 'error',
+                    render: handleError(),
+                })
+        }
+    }
+
     return (
         <div className={style.editor}>
-            <form>
-                <TextInput name="name" label="Nazwa artykułu" />
-                <TextInput name="header" label="Nagłówek"></TextInput>
-
+            <form onSubmit={handleSubmit}>
+                <TextInput
+                    name="name"
+                    label="Nazwa artykułu"
+                    handleInput={setName}
+                />
+                <TextInput
+                    name="header"
+                    label="Nagłówek"
+                    handleInput={setTitle}
+                />
+                Wymagany Etap
+                <select
+                    defaultValue={1}
+                    onChange={({ target }: { target: HTMLSelectElement }) => {
+                        const value = +target.value
+                        if (isStageCorrect(value))
+                            setRequiredStage(value as Stage)
+                    }}
+                >
+                    {Array.from(Array(7).keys()).map((n) => (
+                        <option value={n + 1} key={n}>
+                            Etap {n + 1}
+                        </option>
+                    ))}
+                </select>
                 {contents && (
                     <ReactSortable
                         list={contents}
@@ -198,7 +347,6 @@ const ArticleEditor = () => {
                         })}
                     </ReactSortable>
                 )}
-
                 <div className={style.add}>
                     <h2>Dodaj...</h2>
                     <Button onClick={() => handleContentAdd('part')}>
@@ -209,6 +357,11 @@ const ArticleEditor = () => {
                     </Button>
                     <Button onClick={() => handleContentAdd('module')}>
                         Moduł
+                    </Button>
+                </div>
+                <div className={style.save}>
+                    <Button type="submit" disabled={!canSubmit}>
+                        Zapisz
                     </Button>
                 </div>
             </form>
