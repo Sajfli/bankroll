@@ -3,14 +3,12 @@
 .stage {
     padding: 10px 40px;
 
-    width: 70%;
+    width: 100%;
 
-    @media (max-width: 1000px) {
-        width: 100%;
-        padding: 40px 20px;
-    }
-
-    width: 1200px;
+    // @media (max-width: 1000px) {
+    //     width: 100%;
+    //     padding: 40px 20px;
+    // }
 
     .icon {
         margin: 0 2px 0 8px;
@@ -112,12 +110,16 @@
         text-align: center;
     }
 
+    .module,
+    .rl {
+        margin: 50px 0;
+    }
+
     .rl {
         display: flex;
         max-width: 100%;
         justify-content: space-between;
-
-        margin-top: 50px;
+        align-items: center;
 
         & > ol,
         & > p {

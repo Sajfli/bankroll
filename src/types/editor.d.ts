@@ -1,18 +1,9 @@
-import EditorModules from '@/utils/ArticleModules'
+import { ContentTypes, Modules, ValueTypes } from './article'
 
 export type EditorId = string
-export type Modules = typeof EditorModules[number]
 
 export type ContentValueType = {
-    type:
-        | 'paragraph'
-        | 'list'
-        | 'quote'
-        | 'image'
-        | 'rl'
-        | 'author'
-        | 'module'
-        | 'file'
+    type: ValueTypes & 'image'
     listType?: 'ul' | 'ol'
     value?: string | File
     alreadyUploaded?: boolean
@@ -27,8 +18,6 @@ export type ContentValueType = {
     moduleName?: Modules | null
     id: EditorId
 }
-
-export type ContentTypes = 'part' | 'blockquote' | 'module'
 
 export type ContentType = {
     type: ContentTypes

@@ -15,7 +15,6 @@ const EditorModule = ({
             onChange={(e) => {
                 const target = e.target as HTMLSelectElement
 
-                console.log(target.value)
                 handler.handleModuleSelect(target.value as Modules)
             }}
         >

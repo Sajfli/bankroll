@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import comperialead from '@/_res/img/stage1_comperialead.jpg'
 
+import '@/modules/organisms/Article.scss'
+
 const Stage1 = () => {
     return (
         <div className="stage">

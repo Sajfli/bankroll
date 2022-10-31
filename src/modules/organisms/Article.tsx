@@ -1,13 +1,11 @@
 import { Interweave } from 'interweave'
+import { ReactElement } from 'react'
+
+import { ArticleModulesList } from '@/utils/ArticleModules'
 import LoaderScreen from '../molecules/LoaderScreen'
 
-import { ContentType, ContentValueType } from '@/types/editor'
-import { ArticleModulesList } from '@/utils/ArticleModules'
-
-import { Article } from '@/types/utils'
-
+import { ArticleContent, Article, ArticleContentValue } from '@/types/article'
 import './Article.scss'
-import { ReactElement } from 'react'
 
 const ListWrapper = ({
     type,
@@ -20,64 +18,101 @@ const ListWrapper = ({
     else return <ul>{children}</ul>
 }
 
+const LeftRightMapper = ({ content }: { content: ArticleContentValue[] }) => (
+    <div>
+        {content.map(({ type, listType, value, values, _id }) => (
+            <ArticlePartElement
+                key={_id}
+                _id={_id}
+                type={type}
+                listType={listType}
+                value={value}
+                values={values}
+            />
+        ))}
+    </div>
+)
+
 const ArticlePartElement = ({
     type,
     listType,
     value,
     values,
-}: ContentValueType) => {
-    if (type === 'paragraph')
-        return (
-            <p>
-                <Interweave content={value as string} />
-            </p>
-        )
-    if (type === 'list')
-        return (
-            <ListWrapper type={listType}>
-                {values &&
-                    values.map(({ id, value }) => (
-                        <li key={id}>
-                            <Interweave content={value} />
-                        </li>
-                    ))}
-            </ListWrapper>
-        )
-    if (type === 'quote')
-        return (
-            <q>
-                <Interweave content={value as string} />
-            </q>
-        )
-    return null
+    leftRight,
+}: ArticleContentValue) => {
+    switch (type) {
+        case 'paragraph':
+            return (
+                <p>
+                    <Interweave content={value as string} />
+                </p>
+            )
+        case 'list':
+            return (
+                <ListWrapper type={listType}>
+                    {values &&
+                        values.map(({ _id, value }) => (
+                            <li key={_id}>
+                                <Interweave content={value} />
+                            </li>
+                        ))}
+                </ListWrapper>
+            )
+        case 'quote':
+            return (
+                <q>
+                    <Interweave content={value as string} />
+                </q>
+            )
+        case 'file':
+            return (
+                <figure className="image">
+                    <img src={value} alt="" />
+                </figure>
+            )
+        case 'rl':
+            if (!leftRight) return null
+            return (
+                <div className="rl">
+                    <LeftRightMapper content={leftRight.left} />
+                    <LeftRightMapper content={leftRight.right} />
+                </div>
+            )
+        default:
+            return <b>type</b>
+    }
 }
 
 const ArticlePart = ({
     header,
     value,
 }: {
-    header?: ContentType['header']
-    value: ContentValueType[]
+    header?: ArticleContent['header']
+    value: ArticleContentValue[]
 }) => {
+    console.log(value)
     return (
         <div className="part">
             {header && <h2>{header}</h2>}
             {value &&
-                value.map(({ type, listType, value, values, id }) => (
-                    <ArticlePartElement
-                        key={id}
-                        id={id}
-                        type={type}
-                        listType={listType}
-                        value={value}
-                        values={values}
-                    />
-                ))}
+                value.map(
+                    ({ type, listType, value, values, _id, leftRight }) => (
+                        <ArticlePartElement
+                            key={_id}
+                            _id={_id}
+                            type={type}
+                            listType={listType}
+                            value={value}
+                            values={values}
+                            leftRight={leftRight}
+                        />
+                    )
+                )}
         </div>
     )
 }
 
-const Blockquote = ({ value }: { value: ContentValueType[] }) => {
+const Blockquote = ({ value }: { value: ArticleContentValue[] }) => {
     const quote = value.findIndex(({ type }) => type === 'quote'),
         author = value.findIndex(({ type }) => type === 'author')
 
@@ -93,7 +128,7 @@ const Blockquote = ({ value }: { value: ContentValueType[] }) => {
     )
 }
 
-const Module = ({ value }: { value: ContentValueType[] }) => {
+const Module = ({ value }: { value: ArticleContentValue[] }) => {
     if (
         !value[0] ||
         !value[0].moduleName ||
@@ -104,7 +139,11 @@ const Module = ({ value }: { value: ContentValueType[] }) => {
     const ModuleComponent = ArticleModulesList[value[0].moduleName]
     if (!ModuleComponent) return null
 
-    return <ModuleComponent />
+    return (
+        <div className="module">
+            <ModuleComponent />
+        </div>
+    )
 }
 
 const ParseType = ({
@@ -112,9 +151,9 @@ const ParseType = ({
     header,
     value,
 }: {
-    type: ContentType['type']
-    header: ContentType['header']
-    value: ContentType['value']
+    type: ArticleContent['type']
+    header: ArticleContent['header']
+    value: ArticleContent['value']
 }) => {
     if (type === 'part') return <ArticlePart header={header} value={value} />
     if (type === 'blockquote') return <Blockquote value={value} />
@@ -129,23 +168,23 @@ type ParseArticleProps = {
 const ParseArticle = ({ article, type }: ParseArticleProps) => {
     if (!article) return <LoaderScreen />
 
-    const { title, name, content } = article
+    const { title, content } = article
 
     return (
-        <article>
-            <div className={type || 'stage'}>
+        <div className={type || 'stage'}>
+            <article>
                 <h1>{title || 'Brak tytułu'}</h1>
                 {content &&
-                    content.map(({ type, header, value, id }) => (
+                    content.map(({ type, header, value, _id }) => (
                         <ParseType
                             type={type}
                             header={header}
                             value={value}
-                            key={id}
+                            key={_id}
                         />
                     ))}
-            </div>
-        </article>
+            </article>
+        </div>
     )
 }
 

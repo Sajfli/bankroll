@@ -83,11 +83,3 @@ export type ToastContextType = {
 
 // stage type
 export type Stage = typeof stages[number]
-
-// Article
-export interface Article {
-    title: string
-    name: string
-    content: ContentType[]
-    requiredStage: Stage
-}

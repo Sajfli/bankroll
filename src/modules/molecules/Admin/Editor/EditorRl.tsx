@@ -21,7 +21,6 @@ const Buttons = ({
     handler: Handler
 }) => {
     const handleAdd = (type: ContentValueType['type']) => {
-        console.log('tu', side)
         handler.handleRlAdd(side, type)
     }
 
