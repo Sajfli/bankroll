@@ -15,6 +15,7 @@ export type ContentValueType = {
         | 'file'
     listType?: 'ul' | 'ol'
     value?: string | File
+    alreadyUploaded?: boolean
     values?: {
         id: EditorId
         value: string
@@ -63,6 +64,7 @@ export type Handler = {
         side: 'left' | 'right',
         newState: ContentValueType[]
     ) => void
+    handleFileCaptionChange: (id: string, value: string) => void
 }
 
 export type Rl = {

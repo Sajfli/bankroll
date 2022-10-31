@@ -1,11 +1,17 @@
-import { Handler, Modules } from '@/types/editor'
+import { Handler, Modules, ContentValueType } from '@/types/editor'
 
 import EditorModules from '@/utils/ArticleModules'
 
-const EditorModule = ({ handler }: { handler: Handler }) => {
+const EditorModule = ({
+    handler,
+    moduleName,
+}: {
+    handler: Handler
+    moduleName: ContentValueType['moduleName']
+}) => {
     return (
         <select
-            defaultValue="_"
+            defaultValue={moduleName || '_'}
             onChange={(e) => {
                 const target = e.target as HTMLSelectElement
 

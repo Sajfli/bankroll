@@ -26,6 +26,11 @@ const config = ({ mode }) => {
                     changeOrigin: false,
                     secure: false,
                 },
+                '/images': {
+                    target: 'https://localhost:8443',
+                    changeOrigin: false,
+                    secure: false,
+                },
             },
         },
         build: {

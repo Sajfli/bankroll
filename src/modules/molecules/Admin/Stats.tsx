@@ -29,7 +29,6 @@ const Stats = () => {
                 if (responseJson.ok) {
                     const data = responseJson.data
                     if (mounted) setCounts(data)
-                    console.log(data)
                 } else throw Error()
             } catch (err) {
                 setCounts(null)

@@ -6,6 +6,7 @@ import {
     UpdateOptions,
 } from 'react-toastify'
 import { stages } from '@/utils/stages'
+import { ContentType } from './editor'
 
 export type Subpath = {
     label: string
@@ -82,3 +83,11 @@ export type ToastContextType = {
 
 // stage type
 export type Stage = typeof stages[number]
+
+// Article
+export interface Article {
+    title: string
+    name: string
+    content: ContentType[]
+    requiredStage: Stage
+}

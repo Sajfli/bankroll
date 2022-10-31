@@ -11,6 +11,7 @@ import Stats from '@/modules/molecules/Admin/Stats'
 import NewArticle from '@/pages/Admin/NewArticle'
 
 import Root from './Root'
+import EdititArticle from '@/pages/Admin/EditArticle'
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
                     {
                         path: 'articles/new',
                         element: <NewArticle />,
+                    },
+                    {
+                        path: 'articles/:article',
+                        element: <EdititArticle />,
                     },
                 ],
             },

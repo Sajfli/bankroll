@@ -21,9 +21,11 @@ const EditorBlock = ({
     setContent,
     handleBlockRemove,
     type: __type,
+    header,
 }: {
     value: Editor.ContentValueType[]
     type: Editor.ContentTypes
+    header?: string
     handleContentModify: any
     setContent?: (values: Editor.ContentValueType[]) => void
     handleBlockRemove?: () => void
@@ -122,9 +124,16 @@ const EditorBlock = ({
                     else if (_value.leftRight)
                         _value.leftRight[rl.side][rl.i][prop][i].value = val
                 } else {
-                    if (!rl) _value[prop] = val
-                    else if (_value.leftRight)
+                    if (!rl) {
+                        _value[prop] = val
+                        if (_value.alreadyUploaded)
+                            _value.alreadyUploaded = false
+                    } else if (_value.leftRight) {
                         _value.leftRight[rl.side][rl.i][prop] = val
+                        if (_value.leftRight[rl.side][rl.i].alreadyUploaded)
+                            _value.leftRight[rl.side][rl.i].alreadyUploaded =
+                                false
+                    }
                 }
             }
 
@@ -232,6 +241,16 @@ const EditorBlock = ({
             })
         }
 
+        const handleFileCaptionChange = (id: string, value: string) => {
+            if (index < 0) return
+            setValue({
+                array: _value,
+                property: 'values',
+                value,
+                id,
+            })
+        }
+
         const handleRlAdd = (
             side: 'right' | 'left',
             type: Editor.ContentValueType['type']
@@ -253,7 +272,12 @@ const EditorBlock = ({
                     case 'paragraph':
                     case 'quote':
                     case 'file':
-                        return { id, value: '', type }
+                        return {
+                            id,
+                            value: '',
+                            type,
+                            values: [{ id, value: '' }],
+                        }
                     case 'list':
                         return { id, values: [], type }
                     default:
@@ -298,6 +322,7 @@ const EditorBlock = ({
             handleFileChange,
             handleRlAdd,
             handleRlOrderChange,
+            handleFileCaptionChange,
         }
     }
 
@@ -326,6 +351,7 @@ const EditorBlock = ({
                             handleInput={(val) =>
                                 handleContentModify('modify', val, 'header')
                             }
+                            defaultValue={header || ''}
                         />
                     ) : null}
                 </div>
@@ -342,7 +368,16 @@ const EditorBlock = ({
                         group={__type === 'part' ? 'valueElements' : undefined}
                     >
                         {value.map(
-                            ({ type, values, id, listType, leftRight }) => (
+                            ({
+                                type,
+                                values,
+                                value,
+                                id,
+                                listType,
+                                leftRight,
+                                moduleName,
+                                alreadyUploaded,
+                            }) => (
                                 <RenderValues
                                     key={id}
                                     type={type}
@@ -354,6 +389,9 @@ const EditorBlock = ({
                                     initHandler={initHandler}
                                     blockType={__type}
                                     leftRight={leftRight}
+                                    value={value}
+                                    moduleName={moduleName}
+                                    alreadyUploaded={alreadyUploaded}
                                 />
                             )
                         )}

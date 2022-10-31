@@ -2,6 +2,7 @@ import * as Editor from '@/types/editor'
 
 const cleanData = (
     data: Editor.ContentValueType[],
+    imagesCount: number = 0,
     allowRl: boolean = false
 ) => {
     const cleaned: Editor.ContentValueType[] = []
@@ -28,20 +29,40 @@ const cleanData = (
                     values: value.values,
                 })
             else if (value.type === 'image' || value.type === 'file') {
-                files.push(value.value as File)
-                cleaned.push({
-                    id: value.id,
-                    type: 'file',
-                    value: `file_${files.length - 1}`,
-                })
+                console.info(value.alreadyUploaded ? 'tak' : 'nie')
+                if (value.alreadyUploaded) {
+                    cleaned.push({
+                        id: value.id,
+                        type: 'file',
+                        alreadyUploaded: true,
+                        value: value.value,
+                        values: value.values,
+                    })
+                } else {
+                    files.push(value.value as File)
+                    cleaned.push({
+                        id: value.id,
+                        type: 'file',
+                        value: `file_${imagesCount}`,
+                        values: value.values,
+                    })
+                    imagesCount++
+                }
             } else if (value.type === 'rl') {
                 if (value.leftRight && allowRl) {
                     const { values: left, files: files1 } = cleanData(
-                        value.leftRight.left
+                        value.leftRight.left,
+                        imagesCount
                     )
+
+                    imagesCount += files1.length
+
                     const { values: right, files: files2 } = cleanData(
-                        value.leftRight.right
+                        value.leftRight.right,
+                        imagesCount
                     )
+
+                    imagesCount += files2.length
 
                     files = [...files, ...files1, ...files2]
 
@@ -74,7 +95,7 @@ const cleanEditorData = (data: Editor.ContentType) => {
     }
     if (data.header) cleaned.header = data.header
 
-    const { values, files } = cleanData(data.value, true)
+    const { values, files } = cleanData(data.value, 0, true)
 
     cleaned.value = values
 

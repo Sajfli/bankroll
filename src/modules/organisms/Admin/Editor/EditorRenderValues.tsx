@@ -77,6 +77,9 @@ type ContentTypeSelectorProps = {
     type: Editor.ContentValueType['type']
     leftRight: Editor.ContentValueType['leftRight']
     id: Editor.EditorId
+    value: Editor.ContentValueType['value']
+    moduleName: Editor.ContentValueType['moduleName']
+    alreadyUploaded: Editor.ContentValueType['alreadyUploaded']
 }
 const ContentTypeSelector = ({
     handler,
@@ -86,10 +89,13 @@ const ContentTypeSelector = ({
     type,
     leftRight,
     id,
+    value,
+    moduleName,
+    alreadyUploaded,
 }: ContentTypeSelectorProps) => {
     switch (type) {
         case 'paragraph':
-            return <EditorParagraph handler={handler} />
+            return <EditorParagraph handler={handler} value={value as string} />
         case 'list':
             return (
                 <EditorList
@@ -99,15 +105,21 @@ const ContentTypeSelector = ({
                 />
             )
         case 'quote':
-            return <EditorQuote handler={handler} />
+            return <EditorQuote handler={handler} value={value as string} />
         case 'author':
-            return <EditorAuthor handler={handler} />
+            return <EditorAuthor handler={handler} value={value as string} />
         case 'module':
-            return <EditorModule handler={handler} />
+            return <EditorModule handler={handler} moduleName={moduleName} />
         case 'image':
         case 'file':
-            // TODO: Add optional figcaption
-            return <EditorImage handler={handler} />
+            return (
+                <EditorImage
+                    handler={handler}
+                    alreadyUploaded={alreadyUploaded}
+                    defaultValue={value}
+                    caption={values}
+                />
+            )
         case 'rl':
             return (
                 <EditorRl
@@ -135,6 +147,9 @@ const RenderValues = ({
     rl,
     customGrabHandle,
     rlId,
+    value,
+    moduleName,
+    alreadyUploaded,
 }: Editor.ContentValueType & {
     handleRemoveModal: Editor.HandleRemoveModalType
     handleRemove: (id: string) => void
@@ -160,9 +175,12 @@ const RenderValues = ({
                     handler={initHandler(id, rl)}
                     initHandler={initHandler}
                     values={values}
+                    value={value}
                     listType={listType}
                     leftRight={leftRight}
                     id={id}
+                    moduleName={moduleName}
+                    alreadyUploaded={alreadyUploaded}
                 />
             </div>
         </RenderValuesWrapper>

@@ -1,9 +1,14 @@
-import { Handler } from '@/types/editor'
+import EditorSimple, { PropsForEditorSimple } from './EditorSimple'
 
-import EditorSimple from './EditorSimple'
-
-const EditorAuthor = ({ handler }: { handler: Handler }) => {
-    return <EditorSimple handler={handler} simpleInput={true} label="Autor" />
+const EditorAuthor = ({ handler, value }: PropsForEditorSimple) => {
+    return (
+        <EditorSimple
+            handler={handler}
+            simpleInput={true}
+            label="Autor"
+            value={value}
+        />
+    )
 }
 
 export default EditorAuthor

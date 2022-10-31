@@ -1,8 +1,10 @@
 import { Interweave } from 'interweave'
 import LoaderScreen from '../molecules/LoaderScreen'
 
-import { ContentType, ContentValueType, Modules } from '@/types/editor'
+import { ContentType, ContentValueType } from '@/types/editor'
 import { ArticleModulesList } from '@/utils/ArticleModules'
+
+import { Article } from '@/types/utils'
 
 import './Article.scss'
 import { ReactElement } from 'react'
@@ -27,7 +29,7 @@ const ArticlePartElement = ({
     if (type === 'paragraph')
         return (
             <p>
-                <Interweave content={value} />
+                <Interweave content={value as string} />
             </p>
         )
     if (type === 'list')
@@ -44,7 +46,7 @@ const ArticlePartElement = ({
     if (type === 'quote')
         return (
             <q>
-                <Interweave content={value} />
+                <Interweave content={value as string} />
             </q>
         )
     return null
@@ -84,9 +86,9 @@ const Blockquote = ({ value }: { value: ContentValueType[] }) => {
     return (
         <figure className="quote">
             <blockquote>
-                <q>{value[quote].value}</q>
+                <q>{value[quote].value as string}</q>
             </blockquote>
-            <figcaption>{value[author].value}</figcaption>
+            <figcaption>{value[author].value as string}</figcaption>
         </figure>
     )
 }
@@ -120,16 +122,30 @@ const ParseType = ({
     return null
 }
 
-const ParseArticle = ({ data }: { data?: ContentType[] | null }) => {
-    if (!data) return <LoaderScreen />
+type ParseArticleProps = {
+    article: Article | null
+    type?: 'stage'
+}
+const ParseArticle = ({ article, type }: ParseArticleProps) => {
+    if (!article) return <LoaderScreen />
+
+    const { title, name, content } = article
 
     return (
-        <div className="stage">
-            <h1>Title!</h1>
-            {data.map(({ type, header, value, id }) => (
-                <ParseType type={type} header={header} value={value} key={id} />
-            ))}
-        </div>
+        <article>
+            <div className={type || 'stage'}>
+                <h1>{title || 'Brak tytułu'}</h1>
+                {content &&
+                    content.map(({ type, header, value, id }) => (
+                        <ParseType
+                            type={type}
+                            header={header}
+                            value={value}
+                            key={id}
+                        />
+                    ))}
+            </div>
+        </article>
     )
 }
 

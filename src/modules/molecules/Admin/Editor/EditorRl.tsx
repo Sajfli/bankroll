@@ -1,9 +1,7 @@
 import useModal from '@/hooks/useModal'
 import Button from '@/modules/atoms/Button'
 import ConfirmModal from '@/modules/atoms/ConfirmModal'
-import RenderValues, {
-    ContentTypeSelector,
-} from '@/modules/organisms/Admin/Editor/EditorRenderValues'
+import RenderValues from '@/modules/organisms/Admin/Editor/EditorRenderValues'
 import {
     Handler,
     EditorId,

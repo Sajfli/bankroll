@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 import ky, { HTTPError } from 'ky'
-import { Interweave } from 'interweave'
 import propTypes from 'prop-types'
 import { Navigate } from 'react-router-dom'
 
-import LoaderScreen from '@/modules/molecules/LoaderScreen'
-import Banks from '@/modules/organisms/Banks'
+import ParseArticle from '@/modules/organisms/Article'
+import { Article } from '@/types/utils'
 
 const Stage = ({ stage }: { stage: number }) => {
-    const [stageContent, setStageContent] = useState<string | null>(null)
+    const [stageContent, setStageContent] = useState<Article | null>(null)
     const [error, setError] = useState<number | null>(null)
 
     useEffect(() => {
@@ -20,12 +19,12 @@ const Stage = ({ stage }: { stage: number }) => {
                 )
                 const data = (await response.json()) as {
                     ok: boolean
-                    content: string
+                    article: Article
                 }
 
-                if (!data || !data.ok || !data.content) throw Error()
+                if (!data || !data.ok || !data.article) throw Error()
 
-                if (mounted) setStageContent(data.content)
+                if (mounted) setStageContent(data.article)
             } catch (err) {
                 setStageContent(null)
 
@@ -52,14 +51,9 @@ const Stage = ({ stage }: { stage: number }) => {
 
     return (
         <div className="stage">
-            <article>
+            <ParseArticle article={stageContent} type="stage" />
+            {/* <article>
                 <h1 className="stage_header">Etap {stage}</h1>
-                {/*
-                {stageContent ? (
-                    <Interweave content={stageContent} />
-                ) : (
-                    <LoaderScreen />
-                )} */}
                 <q>Do odważnych świat należy!</q>
                 <div className="part">
                     <p>
@@ -256,7 +250,7 @@ const Stage = ({ stage }: { stage: number }) => {
 
                     <Banks />
                 </div>
-            </article>
+            </article> */}
         </div>
     )
 }

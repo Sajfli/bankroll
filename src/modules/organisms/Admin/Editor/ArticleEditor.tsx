@@ -17,11 +17,29 @@ import useToast, { standardUpdateOptions } from '@/hooks/useToat'
 import handleKyError from '@/utils/handleKyError'
 import handleError from '@/utils/handleError'
 
-const ArticleEditor = () => {
-    const [contents, setContents] = useState<Editor.ContentType[] | null>(null)
-    const [name, setName] = useState<string>('')
-    const [title, setTitle] = useState<string>('')
-    const [requiredStage, setRequiredStage] = useState<Stage>(1)
+type ArticleEditorProps = {
+    content?: Editor.ContentType[]
+    title?: string
+    name?: string
+    requiredStage?: Stage
+    update?: boolean
+}
+
+const ArticleEditor = ({
+    content: _content,
+    title: _title,
+    name: _name,
+    requiredStage: _requiredStage,
+    update,
+}: ArticleEditorProps) => {
+    const [contents, setContents] = useState<Editor.ContentType[] | null>(
+        _content || null
+    )
+    const [name, setName] = useState<string>(_name || '')
+    const [title, setTitle] = useState<string>(_title || '')
+    const [requiredStage, setRequiredStage] = useState<Stage>(
+        _requiredStage || 1
+    )
     const [canSubmit, setCanSubmit] = useState<boolean>(false)
     const [isPending, setIsPending] = useState<boolean>(false)
 
@@ -122,6 +140,12 @@ const ArticleEditor = () => {
                     type: 'image',
                     id,
                     value: '',
+                    values: [
+                        {
+                            value: '',
+                            id: genKey([1]),
+                        },
+                    ],
                 })
                 break
             case 'rl':
@@ -224,39 +248,42 @@ const ArticleEditor = () => {
 
         const sendArticle = () =>
             new Promise(async (resolve, reject) => {
-                const body = new FormData()
-                let files: File[] = []
+                try {
+                    const body = new FormData()
+                    let files: File[] = []
 
-                const _content: Editor.ContentType[] = []
+                    const _content: Editor.ContentType[] = []
 
-                for (let i in contents) {
-                    const { cleaned, files: _files } = cleanEditorData(
-                        contents[i]
+                    for (let i in contents) {
+                        const { cleaned, files: _files } = cleanEditorData(
+                            contents[i]
+                        )
+
+                        if (_files) files = [...files, ..._files]
+
+                        _content.push(cleaned)
+                    }
+
+                    body.append(
+                        'article',
+                        JSON.stringify({
+                            name,
+                            title,
+                            requiredStage,
+                            content: _content,
+                        })
                     )
 
-                    if (_files) files = [...files, ..._files]
+                    for (let i in files) {
+                        body.append('file', files[i], `file_${i}`)
+                    }
 
-                    _content.push(cleaned)
-                }
+                    const url = '/api/v1/content/article'
+                    const options = { body }
 
-                body.append(
-                    'article',
-                    JSON.stringify({
-                        name,
-                        title,
-                        requiredStage,
-                        content: _content,
-                    })
-                )
-
-                for (let i in files) {
-                    body.append('file', files[i], `file_${i}`)
-                }
-
-                try {
-                    const response = await ky.post('/api/v1/content/article', {
-                        body,
-                    })
+                    const response = !update
+                        ? await ky.post(url, options)
+                        : await ky.put(url, options)
                     const resp = (await response.json()) as any
                     if (resp.ok) resolve(resp)
                     else throw Error()
@@ -280,20 +307,19 @@ const ArticleEditor = () => {
             })
             navigate('/panel/articles')
         } catch (err: any) {
-            if (
-                !handleKyError(err, (status, msg) => {
-                    toast.update(toastId, {
-                        ...standardUpdateOptions,
-                        type: 'error',
-                        render: handleError(msg ? msg : status),
-                    })
+            handleKyError(err, (status, msg) => {
+                toast.update(toastId, {
+                    ...standardUpdateOptions,
+                    type: 'error',
+                    render: handleError(msg ? msg : status),
                 })
-            )
+            }).catch(() => {
                 toast.update(toastId, {
                     ...standardUpdateOptions,
                     type: 'error',
                     render: handleError(),
                 })
+            })
         }
     }
 
@@ -304,15 +330,17 @@ const ArticleEditor = () => {
                     name="name"
                     label="Nazwa artykułu"
                     handleInput={setName}
+                    defaultValue={name || ''}
                 />
                 <TextInput
                     name="header"
                     label="Nagłówek"
                     handleInput={setTitle}
+                    defaultValue={title || ''}
                 />
                 Wymagany Etap
                 <select
-                    defaultValue={1}
+                    defaultValue={requiredStage}
                     onChange={({ target }: { target: HTMLSelectElement }) => {
                         const value = +target.value
                         if (isStageCorrect(value))
@@ -335,7 +363,7 @@ const ArticleEditor = () => {
                         delayOnTouchOnly={true}
                         handle={`.${style.draggableBlock}`}
                     >
-                        {contents.map(({ type, value, id }) => {
+                        {contents.map(({ type, value, id, header }) => {
                             switch (type) {
                                 case 'part':
                                 default:
@@ -351,6 +379,7 @@ const ArticleEditor = () => {
                                             handleBlockRemove={handleContentRemove(
                                                 id
                                             )}
+                                            header={header}
                                         />
                                     )
                             }

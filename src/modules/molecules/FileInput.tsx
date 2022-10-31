@@ -1,15 +1,27 @@
+import { ContentValueType, Handler } from '@/types/editor'
 import { genId } from '@/utils/genKey'
 import { useEffect, useState } from 'react'
+import TextInput from '@/modules/atoms/TextInput'
 import style from './FileInput.module.scss'
 
 const FileInput = ({
     handleFileChange,
+    alreadyUploaded,
+    handleFileCaptionChange,
+    defaultValue,
+    caption,
 }: {
-    handleFileChange?: (file: File) => void
+    handleFileChange: Handler['handleFileChange']
+    alreadyUploaded: ContentValueType['alreadyUploaded']
+    defaultValue: ContentValueType['value']
+    handleFileCaptionChange: Handler['handleFileCaptionChange']
+    caption: ContentValueType['values']
 }) => {
     const [file, setFile] = useState<File | null>(null)
     const [fileName, setFileName] = useState<string | null>(null)
-    const [preview, setPreview] = useState<string | null>(null)
+    const [preview, setPreview] = useState<string | null>(
+        (defaultValue as string) || null
+    )
 
     const [id, setId] = useState<string | null>(null)
 
@@ -47,6 +59,18 @@ const FileInput = ({
                 className={style.input}
                 id={id}
             />
+
+            {caption &&
+                caption.map(({ id, value: defaultValue }) => (
+                    <TextInput
+                        key={id}
+                        defaultValue={defaultValue}
+                        handleInput={(value) =>
+                            handleFileCaptionChange(id, value)
+                        }
+                        label="Opcjonalny przypis do zdjęcia"
+                    />
+                ))}
 
             <div className={style.preview}>
                 {preview && <img src={preview} alt="" />}

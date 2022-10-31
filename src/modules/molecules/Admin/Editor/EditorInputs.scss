@@ -24,25 +24,20 @@
 
             border-top: $border;
             border-bottom: $border;
-
-            // & > div {
-            //     margin: 20px 10px;
-            //     font-size: 0.9rem;
-            //     padding: 10px 0;
-            // }
         }
     }
 
     .buttons {
         display: flex;
-        flex-direction: column;
         align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
         button {
             font-size: 0.8rem;
             line-height: 0.8rem;
             width: 100px;
-            // height: 20px;
-            margin: 5px 0;
+            margin: 5px;
         }
     }
 }

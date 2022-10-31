@@ -41,7 +41,7 @@ const ArticlesList = ({ articles }: { articles: A_ArticleList[] | null }) => {
                         </div>
                         <div className={style.icons}>
                             <div>
-                                <Link to="#">
+                                <Link to={`/panel/articles/${name}`}>
                                     <FontAwesomeIcon icon={faPencil} />
                                 </Link>
                             </div>
