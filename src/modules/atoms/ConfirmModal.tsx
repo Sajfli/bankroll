@@ -35,7 +35,7 @@ const ConfirmModal = ({
         return () => {
             window.removeEventListener('keydown', handleKeyPress)
         }
-    }, [])
+    }, [cancel, confirm])
 
     return (
         <div className={style.confirmModal}>
