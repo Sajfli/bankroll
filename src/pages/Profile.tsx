@@ -19,10 +19,14 @@ const Profile = () => {
             <ConfirmModal
                 question="Czy na pewno chcesz usunąć konto?"
                 comment="W każdym momencie możesz zarejestrować się na nowo"
-                ConfirmButton={
-                    <Button onClick={handleProfileRemove}>Usuń konto</Button>
-                }
-                CancelButton={<Button onClick={modal.hide}>Anuluj</Button>}
+                confirm={{
+                    label: 'Usuń konto',
+                    action: handleProfileRemove,
+                }}
+                cancel={{
+                    label: 'Anuluj',
+                    action: modal.hide,
+                }}
             />
         )
         modal.show()

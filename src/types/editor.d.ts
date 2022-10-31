@@ -3,7 +3,7 @@ import { ContentTypes, Modules, ValueTypes } from './article'
 export type EditorId = string
 
 export type ContentValueType = {
-    type: ValueTypes & 'image'
+    type: ValueTypes | 'image'
     listType?: 'ul' | 'ol'
     value?: string | File
     alreadyUploaded?: boolean

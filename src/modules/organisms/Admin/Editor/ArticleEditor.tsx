@@ -9,13 +9,13 @@ import EditorBlock from './EditorBlock'
 
 import style from './Editor.module.scss'
 import * as Editor from '@/types/editor'
+import * as Article from '@/types/article'
 import cleanEditorData from '@/utils/cleanEditorData'
 import ky from 'ky'
 import { Stage } from '@/types/utils'
 import { isStageCorrect } from '@/utils/stages'
 import useToast, { standardUpdateOptions } from '@/hooks/useToat'
-import handleKyError from '@/utils/handleKyError'
-import handleError from '@/utils/handleError'
+import { handleKyErrorToast } from '@/utils/handleKyError'
 
 type ArticleEditorProps = {
     content?: Editor.ContentType[]
@@ -58,7 +58,7 @@ const ArticleEditor = ({
         else setCanSubmit(false)
     }, [contents, name, title, isPending])
 
-    const handleContentAdd = (type: Editor.ContentTypes) => {
+    const handleContentAdd = (type: Article.ContentTypes | 'image') => {
         const _contents = contents ? [...contents] : []
 
         switch (type) {
@@ -307,19 +307,7 @@ const ArticleEditor = ({
             })
             navigate('/panel/articles')
         } catch (err: any) {
-            handleKyError(err, (status, msg) => {
-                toast.update(toastId, {
-                    ...standardUpdateOptions,
-                    type: 'error',
-                    render: handleError(msg ? msg : status),
-                })
-            }).catch(() => {
-                toast.update(toastId, {
-                    ...standardUpdateOptions,
-                    type: 'error',
-                    render: handleError(),
-                })
-            })
+            handleKyErrorToast(err, toast, toastId)
         }
     }
 

@@ -59,17 +59,16 @@ const RlContentMapper = ({
             .setContent(
                 <ConfirmModal
                     question={`Czy na pewno chcesz usunąć ${whatToRemove}`}
-                    ConfirmButton={
-                        <Button
-                            onClick={() => {
-                                removeFunction()
-                                modal.hide()
-                            }}
-                        >
-                            Tak, usuń
-                        </Button>
-                    }
-                    CancelButton={<Button onClick={modal.hide}>Nie</Button>}
+                    confirm={{
+                        action: () => {
+                            removeFunction()
+                            modal.hide()
+                        },
+                        label: 'Tak, usuń',
+                    }}
+                    cancel={{
+                        action: modal.hide,
+                    }}
                 />
             )
             .show()

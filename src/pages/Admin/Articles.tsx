@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import style from './Articles.module.scss'
 
-import { A_ArticleType } from '@/types/admin'
+import { A_ArticleType } from '@/types/panel'
 import ButtonLink from '@/modules/atoms/ButtonLink'
 import LoaderScreen from '@/modules/molecules/LoaderScreen'
 
@@ -31,7 +31,11 @@ const Articles = () => {
         <div className="defaultFormatting">
             <h1 className="header">Artykuły</h1>
 
-            {articles ? <ArticlesList articles={articles} /> : <LoaderScreen />}
+            {articles ? (
+                <ArticlesList articles={articles} setArticles={setArticles} />
+            ) : (
+                <LoaderScreen />
+            )}
 
             <div className={style.newBtn}>
                 <ButtonLink to="/panel/articles/new">Dodaj nowy</ButtonLink>

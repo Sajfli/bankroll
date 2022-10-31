@@ -12,6 +12,7 @@ import EditorAuthor from '@/modules/molecules/Admin/Editor/EditorAuthor'
 import EditorModule from '@/modules/molecules/Admin/Editor/EditorModule'
 import EditorImage from '@/modules/molecules/Admin/Editor/EditorImage'
 import EditorRl from '@/modules/molecules/Admin/Editor/EditorRl'
+import { ContentTypes } from '@/types/article'
 
 const typeToRemoveMessage = (type: Editor.ContentValueType['type']) => {
     switch (type) {
@@ -154,7 +155,7 @@ const RenderValues = ({
     handleRemoveModal: Editor.HandleRemoveModalType
     handleRemove: (id: string) => void
     initHandler: Editor.InitHandlerType
-    blockType: Editor.ContentTypes
+    blockType: ContentTypes
     rl?: { side: 'left' | 'right'; i: number }
     customGrabHandle?: string
     rlId?: Editor.EditorId

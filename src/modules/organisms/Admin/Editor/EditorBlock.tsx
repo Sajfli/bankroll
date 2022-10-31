@@ -14,6 +14,7 @@ import RenderValues from './EditorRenderValues'
 
 import style from './Editor.module.scss'
 import * as Editor from '@/types/editor'
+import { ContentTypes, Modules } from '@/types/article'
 
 const EditorBlock = ({
     value,
@@ -24,7 +25,7 @@ const EditorBlock = ({
     header,
 }: {
     value: Editor.ContentValueType[]
-    type: Editor.ContentTypes
+    type: ContentTypes
     header?: string
     handleContentModify: any
     setContent?: (values: Editor.ContentValueType[]) => void
@@ -39,17 +40,16 @@ const EditorBlock = ({
         modal.setContent(
             <ConfirmModal
                 question={`Czy na pewno chcesz usunąć ${whatToRemove}`}
-                ConfirmButton={
-                    <Button
-                        onClick={() => {
-                            removeFunction()
-                            modal.hide()
-                        }}
-                    >
-                        Tak, usuń
-                    </Button>
-                }
-                CancelButton={<Button onClick={modal.hide}>Nie</Button>}
+                confirm={{
+                    label: 'Tak, usuń',
+                    action: () => {
+                        removeFunction()
+                        modal.hide()
+                    },
+                }}
+                cancel={{
+                    action: modal.hide,
+                }}
             />
         )
         modal.show()
@@ -226,7 +226,7 @@ const EditorBlock = ({
             addToOrRemoveFromList()
         }
 
-        const handleModuleSelect = (module: Editor.Modules) => {
+        const handleModuleSelect = (module: Modules) => {
             if (index < 0) return
             _value[index].moduleName = module
             update(_value)
