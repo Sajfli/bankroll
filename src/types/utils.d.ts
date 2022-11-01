@@ -6,7 +6,6 @@ import {
     UpdateOptions,
 } from 'react-toastify'
 import { stages } from '@/utils/stages'
-import { ContentType } from './editor'
 
 export type Subpath = {
     label: string
@@ -83,3 +82,11 @@ export type ToastContextType = {
 
 // stage type
 export type Stage = typeof stages[number]
+
+// bank
+export type Bank = {
+    name: string
+    img: string
+    _id: string
+    active: boolean
+}

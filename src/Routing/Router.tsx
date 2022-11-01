@@ -11,7 +11,9 @@ import Stats from '@/modules/molecules/Admin/Stats'
 import NewArticle from '@/pages/Admin/NewArticle'
 
 import Root from './Root'
-import EdititArticle from '@/pages/Admin/EditArticle'
+import EditArticle from '@/pages/Admin/EditArticle'
+import PanelBanks from '@/pages/Admin/PanelBanks'
+import EditBank from '@/pages/Admin/EditBank'
 
 const router = createBrowserRouter([
     {
@@ -52,8 +54,22 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'articles/:article',
-                        element: <EdititArticle />,
+                        element: <EditArticle />,
                     },
+                    {
+                        path: 'banks',
+                        element: <PanelBanks />,
+                        children: [
+                            {
+                                path: ':bank',
+                                element: <EditBank />,
+                            },
+                        ],
+                    },
+                    // {
+                    //     path: 'banks/:bank',
+                    //     element: <EditBank />,
+                    // },
                 ],
             },
             {

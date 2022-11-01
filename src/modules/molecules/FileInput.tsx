@@ -6,24 +6,24 @@ import style from './FileInput.module.scss'
 
 const FileInput = ({
     handleFileChange,
-    alreadyUploaded,
     handleFileCaptionChange,
     defaultValue,
     caption,
 }: {
     handleFileChange: Handler['handleFileChange']
-    alreadyUploaded: ContentValueType['alreadyUploaded']
-    defaultValue: ContentValueType['value']
+    defaultValue?: string
     handleFileCaptionChange: Handler['handleFileCaptionChange']
-    caption: ContentValueType['values']
+    caption?: ContentValueType['values']
 }) => {
     const [file, setFile] = useState<File | null>(null)
     const [fileName, setFileName] = useState<string | null>(null)
-    const [preview, setPreview] = useState<string | null>(
-        (defaultValue as string) || null
-    )
+    const [preview, setPreview] = useState<string | null>(defaultValue || null)
 
     const [id, setId] = useState<string | null>(null)
+
+    useEffect(() => {
+        if (defaultValue) setPreview(defaultValue)
+    }, [defaultValue])
 
     useEffect(() => {
         if (!id) setId(genId('file'))

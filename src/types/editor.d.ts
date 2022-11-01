@@ -26,6 +26,13 @@ export type ContentType = {
     id: EditorId
 }
 
+export type EditorArticle = {
+    title: string
+    name: string
+    requiredStage: Stage
+    content: ContentType[]
+}
+
 export type HandleRemoveModalType = (
     whatToRemove: string,
     remove: () => void

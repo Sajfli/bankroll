@@ -101,6 +101,7 @@ const RlContentMapper = ({
                 delay={3}
                 delayOnTouchOnly={true}
                 handle={`.rl${originalId}`}
+                forceFallback={true}
             >
                 {array.map(({ id, type, values, value, listType }, i) => (
                     <RenderValues

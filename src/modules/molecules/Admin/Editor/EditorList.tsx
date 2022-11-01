@@ -45,6 +45,7 @@ const EditorList = ({ handler, listType, values }: EditorListProps) => {
                     delay={2}
                     delayOnTouchOnly={true}
                     group="lists"
+                    forceFallback={true}
                 >
                     {values.map(({ value, id: listElementId }) => (
                         <div key={listElementId} className={style.listInput}>

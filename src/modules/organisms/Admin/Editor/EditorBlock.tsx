@@ -366,6 +366,7 @@ const EditorBlock = ({
                         className={style.valuesList}
                         handle={`.${style.draggable}`}
                         group={__type === 'part' ? 'valueElements' : undefined}
+                        forceFallback={true}
                     >
                         {value.map(
                             ({

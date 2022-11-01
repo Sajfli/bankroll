@@ -1,0 +1,45 @@
+@use '@/utils/master' as m;
+
+.checkbox label {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    input {
+        display: none;
+    }
+
+    .label {
+        user-select: none;
+    }
+
+    .checkboxInput {
+        border: 2px solid m.$colors_accent;
+        background-color: transparent;
+
+        border-radius: 5px;
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: 0.25s background-color;
+
+        .icon {
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: 0.25s opacity;
+        }
+    }
+
+    input:checked + .checkboxInput {
+        background-color: m.$colors_accent;
+        .icon {
+            opacity: 0.9;
+        }
+    }
+}

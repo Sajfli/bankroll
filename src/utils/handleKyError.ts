@@ -1,4 +1,4 @@
-import { standardUpdateOptions } from '@/hooks/useToat'
+import { standardUpdateOptions } from '@/hooks/useToast'
 import { ToastContextType } from '@/types/utils'
 import { Id } from 'react-toastify/dist/types'
 import handleError from './handleError'
@@ -12,8 +12,12 @@ const handleKyError = (err: any, cb: (status: number, msg?: string) => void) =>
                 resolve(true)
             } else throw Error()
         } catch (error) {
-            if (err.response.status) {
+            if (err.response?.status) {
                 cb(err.response.status)
+                resolve(true)
+            }
+            if (err.message) {
+                cb(0, err.message)
                 resolve(true)
             } else reject(false)
         }
@@ -24,11 +28,10 @@ const handleKyErrorToast = (err: any, toast: ToastContextType, toastId: Id) => {
         toast.update(toastId, {
             ...standardUpdateOptions,
             type: 'error',
-            render: handleError(
-                msg && typeof msg !== 'undefined' ? msg : status
-            ),
+            render: handleError(msg || status),
         })
-    }).catch(() => {
+    }).catch((err) => {
+        console.error(err)
         toast.update(toastId, {
             ...standardUpdateOptions,
             type: 'error',
@@ -37,4 +40,19 @@ const handleKyErrorToast = (err: any, toast: ToastContextType, toastId: Id) => {
     })
 }
 
-export { handleKyErrorToast, handleKyError as default }
+const handleKyErrorToastWithoutLoading = (
+    err: any,
+    toast: ToastContextType
+) => {
+    handleKyError(err, (status, msg) => {
+        toast.error(handleError(msg || status))
+    }).catch(() => {
+        toast.error(handleError())
+    })
+}
+
+export {
+    handleKyErrorToast,
+    handleKyError as default,
+    handleKyErrorToastWithoutLoading,
+}

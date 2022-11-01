@@ -1,0 +1,64 @@
+@use '@/utils/master' as m;
+
+.banksList {
+    width: 100%;
+    ul {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+
+        li {
+            background-color: rgba(26, 26, 26, 0.781);
+            width: fit-content;
+            padding: 20px 25px;
+            margin: 15px;
+            min-width: 200px;
+            min-height: 100px;
+
+            border-radius: 8px;
+
+            .name {
+                font-size: 1.3rem;
+            }
+
+            .img {
+                width: 200px;
+                margin: 10px 0;
+                img {
+                    width: 100%;
+                }
+            }
+
+            .edit {
+                display: flex;
+                align-items: center;
+                font-size: 1.2rem;
+                justify-content: center;
+
+                .clickable {
+                    color: m.$font_color;
+                    margin: 0 5px;
+
+                    cursor: pointer;
+
+                    &:hover {
+                        color: rgba(m.$colors_accent, 0.8);
+                    }
+                }
+
+                .icon {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
+
+.newButton {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}

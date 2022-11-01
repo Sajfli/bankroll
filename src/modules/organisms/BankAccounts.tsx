@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import ky from 'ky'
 import LoaderScreen from '../molecules/LoaderScreen'
 
-const Banks = () => {
+const BankAccounts = () => {
     const [content, setContent] = useState<null | BankAccount[]>()
 
     useEffect(() => {
@@ -75,4 +75,4 @@ const Banks = () => {
     return <LoaderScreen />
 }
 
-export default Banks
+export default BankAccounts

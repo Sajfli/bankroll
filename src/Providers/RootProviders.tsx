@@ -3,7 +3,7 @@ import { ModalProvider } from '@/hooks/useModal'
 import PropTypes from 'prop-types'
 
 import { NodeChildren } from '@/types/children'
-import { ToastProvider } from '@/hooks/useToat'
+import { ToastProvider } from '@/hooks/useToast'
 
 const RootProvider = ({ children }: NodeChildren) => {
     return (

@@ -8,7 +8,7 @@ import style from './ArticlesList.module.scss'
 import { Link } from 'react-router-dom'
 import useModal from '@/hooks/useModal'
 import ConfirmModal from '@/modules/atoms/ConfirmModal'
-import useToast, { standardUpdateOptions } from '@/hooks/useToat'
+import useToast, { standardUpdateOptions } from '@/hooks/useToast'
 import { handleKyErrorToast } from '@/utils/handleKyError'
 import ky from 'ky'
 

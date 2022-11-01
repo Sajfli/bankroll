@@ -3,12 +3,11 @@ import FileInput from '../../FileInput'
 
 const EditorImage = ({
     handler,
-    alreadyUploaded,
     defaultValue,
     caption,
 }: {
     handler: Handler
-    alreadyUploaded: ContentValueType['alreadyUploaded']
+    alreadyUploaded?: ContentValueType['alreadyUploaded']
     defaultValue: ContentValueType['value']
     caption: ContentValueType['values']
 }) => {
@@ -16,7 +15,6 @@ const EditorImage = ({
         <FileInput
             handleFileChange={handler.handleFileChange}
             handleFileCaptionChange={handler.handleFileCaptionChange}
-            alreadyUploaded={alreadyUploaded}
             defaultValue={defaultValue}
             caption={caption}
         />

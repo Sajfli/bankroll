@@ -14,7 +14,7 @@ import cleanEditorData from '@/utils/cleanEditorData'
 import ky from 'ky'
 import { Stage } from '@/types/utils'
 import { isStageCorrect } from '@/utils/stages'
-import useToast, { standardUpdateOptions } from '@/hooks/useToat'
+import useToast, { standardUpdateOptions } from '@/hooks/useToast'
 import { handleKyErrorToast } from '@/utils/handleKyError'
 
 type ArticleEditorProps = {
@@ -350,6 +350,7 @@ const ArticleEditor = ({
                         delay={2}
                         delayOnTouchOnly={true}
                         handle={`.${style.draggableBlock}`}
+                        forceFallback={true}
                     >
                         {contents.map(({ type, value, id, header }) => {
                             switch (type) {

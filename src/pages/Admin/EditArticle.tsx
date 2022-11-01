@@ -1,14 +1,14 @@
 import ky from 'ky'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Article } from '@/types/utils'
 import LoaderScreen from '@/modules/molecules/LoaderScreen'
 import ArticleEditor from '@/modules/organisms/Admin/Editor/ArticleEditor'
 import genKey from '@/utils/genKey'
+import { EditorArticle } from '@/types/editor'
 
 const EdititArticle = () => {
     const params = useParams()
-    const [article, setArticle] = useState<Article | null>(null)
+    const [article, setArticle] = useState<EditorArticle | null>(null)
 
     useEffect(() => {
         if (!params.article) return
@@ -19,7 +19,7 @@ const EdititArticle = () => {
                 )
 
                 const res = (await response.json()) as {
-                    article: Article
+                    article: EditorArticle
                     ok: boolean
                 }
 
@@ -27,7 +27,7 @@ const EdititArticle = () => {
 
                 let _article = JSON.parse(
                     JSON.stringify(res.article).split('_id').join('id')
-                ) as Article
+                ) as EditorArticle
 
                 for (let i in _article.content) {
                     for (let j in _article.content[i].value) {

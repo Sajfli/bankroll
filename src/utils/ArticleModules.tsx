@@ -1,4 +1,4 @@
-import Banks from '@/modules/organisms/Banks'
+import Banks from '@/modules/organisms/BankAccounts'
 
 const EditorModules = ['BankAccounts'] as const
 const ArticleModulesList: {

@@ -90,7 +90,6 @@ const ArticlePart = ({
     header?: ArticleContent['header']
     value: ArticleContentValue[]
 }) => {
-    console.log(value)
     return (
         <div className="part">
             {header && <h2>{header}</h2>}
