@@ -22,6 +22,7 @@ type BankAccountsProps = {
     }) => React.ReactElement
     rerender?: any
     selectedBank?: string | null
+    all?: boolean
 }
 
 const DefaultWrapper: BankAccountsProps['Wrapper'] = ({ children }) => (
@@ -34,6 +35,7 @@ const BankAccounts = ({
     Wrapper = DefaultWrapper,
     rerender,
     selectedBank,
+    all,
 }: BankAccountsProps) => {
     const [bankAccounts, setBankAccounts] = useState<null | BankAccount[]>()
     const [content, setContent] = useState<null | BankAccount[]>()
@@ -42,7 +44,9 @@ const BankAccounts = ({
         let mounted = true
         ;(async () => {
             try {
-                const response = await ky.get('/api/v1/content/bankAccounts')
+                const response = await ky.get(
+                    `/api/v1/content/bankAccounts${all ? '?all=true' : ''}`
+                )
 
                 if (response && response.status === 200) {
                     const json = (await response.json()) as BankAccount[]

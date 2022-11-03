@@ -52,6 +52,7 @@ const BankEditor = ({
 
         try {
             if (!name) throw Error('invalid_data')
+            if (!id) throw Error('invalid_data')
 
             const body = new FormData()
 

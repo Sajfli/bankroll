@@ -30,15 +30,18 @@ const EditBank = () => {
                         .get(`/api/v1/content/banks/${bank}`)
                         .json()) as {
                         ok: boolean
-                        content: Bank
+                        content: Bank & { _id?: string }
                     }
                     if (!res.ok || !res.content) throw Error()
+
+                    res.content.id = res.content._id!
+                    delete res.content._id
 
                     const content = res.content
 
                     setName(content.name)
                     setImg(content.img || '')
-                    setId(content._id)
+                    setId(content.id)
                     setActive(content.active)
                 } catch (err) {
                     handleKyErrorToastWithoutLoading(err, toast)

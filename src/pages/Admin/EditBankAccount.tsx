@@ -193,6 +193,7 @@ const EditBankAccount = ({
             <BankAccounts
                 rerender={v}
                 selectedBank={selectedBank}
+                all={true}
                 customRender={({
                     bankName,
                     bankImg,
