@@ -32,7 +32,8 @@ const TextInput = ({
     }
 
     useEffect(() => {
-        if (defaultValue) handleFocusChange(true)
+        if (defaultValue?.split(' ')) handleFocusChange(true)
+        else if (value?.split(' ')) handleFocusChange(true)
 
         // eslint-disable-next-line
     }, [defaultValue])

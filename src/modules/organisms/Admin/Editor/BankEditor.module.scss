@@ -16,18 +16,6 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-
-        .icon {
-            cursor: pointer;
-
-            transition: color 0.3s;
-
-            color: m.$font_color;
-
-            &:hover {
-                color: rgba(228, 54, 54, 0.733);
-            }
-        }
     }
 
     form {

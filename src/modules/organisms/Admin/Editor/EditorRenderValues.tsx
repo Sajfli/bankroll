@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 
 import style from './Editor.module.scss'
@@ -49,7 +48,7 @@ const RenderValuesWrapper = ({
         {blockType === 'part' && (
             <div className={style.icons}>
                 <FontAwesomeIcon
-                    icon={faXmark}
+                    icon="xmark"
                     className={style.removeIcon}
                     onClick={() => {
                         handleRemoveModal(typeToRemoveMessage(type), () => {
@@ -58,7 +57,7 @@ const RenderValuesWrapper = ({
                     }}
                 />
                 <FontAwesomeIcon
-                    icon={faBars}
+                    icon="bars"
                     className={classNames({
                         [`${style.draggable}`]: !customGrabHandle,
                         [`${style.draggable__nohandle}`]: !!customGrabHandle,

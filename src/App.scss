@@ -43,3 +43,28 @@ a {
         line-height: 1.8rem;
     }
 }
+
+.hover__accent {
+    @include m.hover_animation(m.$colors_accent);
+}
+
+.hover__red {
+    @include m.hover_animation(#fc5151e8);
+}
+
+.hover__orange {
+    @include m.hover_animation(#be6b3be8);
+}
+
+.hover__green {
+    @include m.hover_animation(#3fd43fe8);
+}
+
+.hover__blue {
+    @include m.hover_animation(#3f7bd4e8);
+}
+
+.draggable,
+.draggable__noevent {
+    cursor: grab !important;
+}

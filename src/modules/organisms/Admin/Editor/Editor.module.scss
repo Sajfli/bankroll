@@ -8,7 +8,6 @@
         border-radius: 10px;
     }
 
-    // background-color: red;
     display: flex;
     flex-direction: column;
 
@@ -38,8 +37,6 @@
         padding-bottom: 20px;
         margin: 20px 0;
         display: flex;
-        // flex-direction: column;
-        // align-items: center;
         height: fit-content;
 
         width: 100%;
@@ -90,17 +87,9 @@
                 width: 100%;
                 height: calc(100% - 50px);
 
-                $strips-color: rgba(255, 2550, 255, 0.3);
-
                 cursor: grab;
 
-                background: repeating-linear-gradient(
-                    135deg,
-                    transparent,
-                    transparent 10px,
-                    $strips-color 10px,
-                    $strips-color 20px
-                );
+                background: m.fancy_drag_gradient();
             }
         }
     }

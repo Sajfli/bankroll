@@ -1,6 +1,5 @@
 import { ReactSortable } from 'react-sortablejs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 
 import TextArea from '@/modules/atoms/TextArea'
@@ -67,14 +66,14 @@ const EditorList = ({ handler, listType, values }: EditorListProps) => {
                             </div>
                             <div className={style.listIcons}>
                                 <FontAwesomeIcon
-                                    icon={faBars}
+                                    icon="bars"
                                     className={classNames(
                                         style.icon,
                                         style.draggableListElement
                                     )}
                                 />
                                 <FontAwesomeIcon
-                                    icon={faXmark}
+                                    icon="xmark"
                                     className={classNames(
                                         style.icon,
                                         style.removeIcon
@@ -95,7 +94,7 @@ const EditorList = ({ handler, listType, values }: EditorListProps) => {
                 }}
             >
                 <>
-                    Dodaj <FontAwesomeIcon icon={faPlus} />
+                    Dodaj <FontAwesomeIcon icon="plus" />
                 </>
             </Button>
         </div>

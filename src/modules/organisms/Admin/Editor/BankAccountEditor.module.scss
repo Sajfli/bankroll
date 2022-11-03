@@ -1,0 +1,32 @@
+@use '@/utils/master' as m;
+
+.scrollHandler {
+    left: 0;
+    position: absolute;
+}
+
+.perks {
+    list-style: none;
+
+    li {
+        background-color: rgba(m.$colors_accent, 0.2);
+        padding: 10px;
+        margin: 10px 0;
+
+        width: fit-content;
+
+        display: flex;
+        align-items: center;
+
+        .listOptions {
+            height: 100%;
+            width: fit-content;
+            font-size: 1.6rem;
+            margin-left: 20px;
+
+            & > svg {
+                margin: 0 6px;
+            }
+        }
+    }
+}

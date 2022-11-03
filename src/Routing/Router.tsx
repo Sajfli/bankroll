@@ -14,6 +14,7 @@ import Root from './Root'
 import EditArticle from '@/pages/Admin/EditArticle'
 import PanelBanks from '@/pages/Admin/PanelBanks'
 import EditBank from '@/pages/Admin/EditBank'
+import BankAccountEditor from '@/modules/organisms/Admin/Editor/BankAccountEditor'
 
 const router = createBrowserRouter([
     {
@@ -61,15 +62,15 @@ const router = createBrowserRouter([
                         element: <PanelBanks />,
                         children: [
                             {
-                                path: ':bank',
+                                path: 'bank/:bank',
                                 element: <EditBank />,
+                            },
+                            {
+                                path: 'account/:account',
+                                element: <BankAccountEditor />,
                             },
                         ],
                     },
-                    // {
-                    //     path: 'banks/:bank',
-                    //     element: <EditBank />,
-                    // },
                 ],
             },
             {

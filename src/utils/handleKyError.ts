@@ -15,8 +15,7 @@ const handleKyError = (err: any, cb: (status: number, msg?: string) => void) =>
             if (err.response?.status) {
                 cb(err.response.status)
                 resolve(true)
-            }
-            if (err.message) {
+            } else if (err.message) {
                 cb(0, err.message)
                 resolve(true)
             } else reject(false)

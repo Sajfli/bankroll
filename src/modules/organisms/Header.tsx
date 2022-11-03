@@ -5,26 +5,19 @@ import Navigation from '../molecules/Navigation'
 
 import { Path } from '@/types/utils'
 
-import {
-    faHome,
-    faMoneyBill,
-    faRightFromBracket,
-    faUser,
-    faBook,
-} from '@fortawesome/free-solid-svg-icons'
 import useAuth from '@/hooks/useAuth'
 
 const Header = () => {
     const auth = useAuth()
 
     const paths: Path[] = [
-        { label: 'Strona Główna', location: '/', icon: faHome },
+        { label: 'Strona Główna', location: '/', icon: 'home' },
         !auth.isAuthed
-            ? { label: 'Etap 1', location: '/etap/1', icon: faMoneyBill }
+            ? { label: 'Etap 1', location: '/etap/1', icon: 'money-bill' }
             : {
                   label: 'Etapy',
                   location: '/etap/1',
-                  icon: faMoneyBill,
+                  icon: 'money-bill',
                   subpaths: [...Array(auth.stage || 1).keys()].map((n) => ({
                       label: `Etap ${++n}`,
                       location: `/etap/${n}`,
@@ -45,12 +38,12 @@ const Header = () => {
                       {
                           label: 'Profil',
                           location: '/profile',
-                          icon: faUser,
+                          icon: 'user',
                       },
                       {
                           label: 'Wyloguj się',
                           location: '/api/v1/account/facebook/logout',
-                          icon: faRightFromBracket,
+                          icon: 'right-from-bracket',
                           external: true,
                       },
                   ],
@@ -61,7 +54,7 @@ const Header = () => {
         paths.push({
             location: '/panel',
             label: 'Panel',
-            icon: faBook,
+            icon: 'book',
         })
 
     return (

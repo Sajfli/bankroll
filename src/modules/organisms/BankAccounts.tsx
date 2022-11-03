@@ -1,10 +1,41 @@
 import Table from '../atoms/Table'
 import { BankAccount } from '@/types/utils'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ky from 'ky'
 import LoaderScreen from '../molecules/LoaderScreen'
 
-const BankAccounts = () => {
+export type SetContent = React.Dispatch<
+    React.SetStateAction<BankAccount[] | null | undefined>
+>
+
+type BankAccountsProps = {
+    customRender?: (props: BankAccount) => React.ReactElement
+    TableFooter?: React.ReactElement | null
+    Wrapper?: ({
+        children,
+        list,
+        setList,
+    }: {
+        children: React.ReactElement[]
+        list: BankAccount[]
+        setList: (list: BankAccount[]) => void
+    }) => React.ReactElement
+    rerender?: any
+    selectedBank?: string | null
+}
+
+const DefaultWrapper: BankAccountsProps['Wrapper'] = ({ children }) => (
+    <tbody>{children}</tbody>
+)
+
+const BankAccounts = ({
+    customRender,
+    TableFooter,
+    Wrapper = DefaultWrapper,
+    rerender,
+    selectedBank,
+}: BankAccountsProps) => {
+    const [bankAccounts, setBankAccounts] = useState<null | BankAccount[]>()
     const [content, setContent] = useState<null | BankAccount[]>()
 
     useEffect(() => {
@@ -26,53 +57,66 @@ const BankAccounts = () => {
         return () => {
             mounted = false
         }
-    }, [])
+    }, [rerender])
 
-    if (content) {
-        return (
-            <Table bankAccounts={true}>
-                <tbody>
-                    {content.map(
-                        ({
-                            bankName,
-                            bankImg,
-                            accountName,
-                            link,
-                            perks,
-                            accountId,
-                        }) => (
-                            <tr key={accountId}>
-                                <td>
-                                    <img src={bankImg} alt={bankName} />
-                                </td>
-                                <td>
-                                    <h3>
-                                        {bankName} - {accountName}
-                                    </h3>
-                                    <ul>
-                                        {perks.map((val, i) => (
-                                            <li key={i}>{val}</li>
-                                        ))}
-                                    </ul>
-                                    <p>
-                                        <a
-                                            href={link}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            Załóż konto
-                                        </a>
-                                    </p>
-                                </td>
-                            </tr>
-                        )
-                    )}
-                </tbody>
-            </Table>
-        )
-    }
+    useEffect(() => {
+        if (!selectedBank) setBankAccounts(content || null)
+        else {
+            const _accounts = content?.filter(
+                ({ bankName }) => bankName === selectedBank
+            )
+            if (_accounts) setBankAccounts(_accounts)
+            else setBankAccounts(content || null)
+        }
+    }, [content, selectedBank])
 
-    return <LoaderScreen />
+    if (!bankAccounts) return <LoaderScreen />
+    return (
+        <Table bankAccounts={true}>
+            <>
+                <Wrapper list={bankAccounts} setList={setBankAccounts}>
+                    {customRender
+                        ? bankAccounts.map(customRender)
+                        : bankAccounts.map(
+                              ({
+                                  bankName,
+                                  bankImg,
+                                  accountName,
+                                  link,
+                                  perks,
+                                  id,
+                              }) => (
+                                  <tr key={id}>
+                                      <td>
+                                          <img src={bankImg} alt={bankName} />
+                                      </td>
+                                      <td>
+                                          <h3>
+                                              {bankName} - {accountName}
+                                          </h3>
+                                          <ul>
+                                              {perks.map((val, i) => (
+                                                  <li key={i}>{val}</li>
+                                              ))}
+                                          </ul>
+                                          <p>
+                                              <a
+                                                  href={link}
+                                                  target="_blank"
+                                                  rel="noreferrer"
+                                              >
+                                                  Załóż konto
+                                              </a>
+                                          </p>
+                                      </td>
+                                  </tr>
+                              )
+                          )}
+                </Wrapper>
+                {TableFooter && <tfoot>{TableFooter}</tfoot>}
+            </>
+        </Table>
+    )
 }
 
 export default BankAccounts

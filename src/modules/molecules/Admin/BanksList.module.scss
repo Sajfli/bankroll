@@ -20,6 +20,19 @@
 
             border-radius: 8px;
 
+            cursor: pointer;
+
+            transition: background-color m.$standard_transition_time;
+            position: relative;
+
+            &.hover {
+                background-color: rgba(m.$colors_accent, 0.2);
+            }
+
+            &.selected {
+                background-color: rgba(m.$colors_accent, 0.5);
+            }
+
             .name {
                 font-size: 1.3rem;
             }
@@ -37,16 +50,8 @@
                 align-items: center;
                 font-size: 1.2rem;
                 justify-content: center;
-
                 .clickable {
-                    color: m.$font_color;
                     margin: 0 5px;
-
-                    cursor: pointer;
-
-                    &:hover {
-                        color: rgba(m.$colors_accent, 0.8);
-                    }
                 }
 
                 .icon {

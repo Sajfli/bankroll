@@ -4,13 +4,16 @@ import PropTypes from 'prop-types'
 
 import { NodeChildren } from '@/types/children'
 import { ToastProvider } from '@/hooks/useToast'
+import IconsProvider from './IconsProvider'
 
 const RootProvider = ({ children }: NodeChildren) => {
     return (
         <AuthProvider>
-            <ToastProvider>
-                <ModalProvider>{children}</ModalProvider>
-            </ToastProvider>
+            <IconsProvider>
+                <ToastProvider>
+                    <ModalProvider>{children}</ModalProvider>
+                </ToastProvider>
+            </IconsProvider>
         </AuthProvider>
     )
 }

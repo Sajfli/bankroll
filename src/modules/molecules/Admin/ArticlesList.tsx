@@ -2,7 +2,6 @@ import { A_ArticleType } from '@/types/panel'
 import LoaderScreen from '../LoaderScreen'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencil, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 import style from './ArticlesList.module.scss'
 import { Link } from 'react-router-dom'
@@ -80,14 +79,14 @@ const ArticlesList = ({
                         <div className={style.icons}>
                             <div>
                                 <Link to={`/panel/articles/${name}`}>
-                                    <FontAwesomeIcon icon={faPencil} />
+                                    <FontAwesomeIcon icon="pencil" />
                                 </Link>
                             </div>
                             <div
                                 className={style.action}
                                 onClick={() => handleRemoveModal(name)}
                             >
-                                <FontAwesomeIcon icon={faXmark} />
+                                <FontAwesomeIcon icon="xmark" />
                             </div>
                         </div>
                     </li>

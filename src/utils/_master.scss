@@ -6,3 +6,35 @@ $font_color: rgba($font_color_noalpha, 0.88);
 $header_height: 50px;
 $nav_height: 40px;
 $footer_height: 60px;
+
+$standard_transition_time: 0.3s;
+
+@function fancy_drag_gradient(
+    $color1: transparent,
+    $color2: rgba(255, 2550, 255, 0.3)
+) {
+    @return repeating-linear-gradient(
+        135deg,
+        $color1,
+        $color1 10px,
+        $color2 10px,
+        $color2 20px
+    );
+}
+
+@mixin hover_animation($color) {
+    cursor: pointer;
+
+    color: $font_color;
+
+    transition: color $standard_transition_time,
+        filter $standard_transition_time;
+    will-change: filter;
+    filter: drop-shadow(0 0 2px transparent);
+
+    &:hover {
+        color: $color;
+
+        filter: drop-shadow(0 0 2px $color);
+    }
+}

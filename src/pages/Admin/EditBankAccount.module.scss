@@ -1,0 +1,43 @@
+@use '@/utils/master' as m;
+.row {
+    position: relative;
+    &.notEditing {
+        opacity: 0.5;
+        pointer-events: none;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .options {
+        width: 50px;
+        position: relative;
+
+        background-color: rgba(m.$colors_accent, 0.3);
+
+        & > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+
+            font-size: 1.3rem;
+
+            & > a,
+            & > svg {
+                margin: 7px 0;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.newButton {
+    text-align: center;
+    margin-top: 20px;
+}

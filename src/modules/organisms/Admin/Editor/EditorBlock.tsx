@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import { ReactSortable } from 'react-sortablejs'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 import genKey from '@/utils/genKey'
 import useModal from '@/hooks/useModal'
@@ -442,7 +441,7 @@ const EditorBlock = ({
             <div className={style.actionBlock}>
                 <div>
                     <FontAwesomeIcon
-                        icon={faXmark}
+                        icon="xmark"
                         className={style.removeIcon}
                         onClick={() => {
                             handleRemoveModal('ten blok', () => {

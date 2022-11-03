@@ -50,7 +50,7 @@ export type BankAccount = {
     perks: string[]
     link: string
     accountName: string
-    accountId: string
+    id: string
 }
 
 // Modal context
@@ -87,6 +87,6 @@ export type Stage = typeof stages[number]
 export type Bank = {
     name: string
     img: string
-    _id: string
+    id: string
     active: boolean
 }

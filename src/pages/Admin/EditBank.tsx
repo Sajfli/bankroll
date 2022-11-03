@@ -20,6 +20,9 @@ const EditBank = () => {
 
         if (bank.toLocaleLowerCase() === 'new') {
             setId('new')
+            setName('')
+            setImg('')
+            setActive(true)
         } else {
             ;(async () => {
                 try {

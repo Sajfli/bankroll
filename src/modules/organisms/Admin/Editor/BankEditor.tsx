@@ -5,7 +5,6 @@ import TextInput from '@/modules/atoms/TextInput'
 import FileInput from '@/modules/molecules/FileInput'
 import { Bank } from '@/types/utils'
 import { handleKyErrorToastWithoutLoading } from '@/utils/handleKyError'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ky from 'ky'
 import React, { useEffect, useState } from 'react'
@@ -68,13 +67,19 @@ const BankEditor = ({
                 })
                 .json()) as {
                 ok: boolean
-                content?: Bank[]
+                content?: (Bank & { _id?: string })[]
             }
 
             if (!response.ok) throw Error()
 
             if (response.content && Array.isArray(response.content))
-                setBanks(response.content)
+                setBanks(
+                    response.content.map((bank) => {
+                        bank.id = bank._id!
+                        delete bank._id
+                        return bank
+                    })
+                )
 
             toast.success(`${name} został zapisany`)
 
@@ -88,7 +93,7 @@ const BankEditor = ({
         <div className={style.form}>
             <div className={style.topBar}>
                 <Link to="/panel/banks">
-                    <FontAwesomeIcon icon={faXmark} className={style.icon} />
+                    <FontAwesomeIcon icon="xmark" className="hover__red" />
                 </Link>
             </div>
             <form onSubmit={handleSubmit}>

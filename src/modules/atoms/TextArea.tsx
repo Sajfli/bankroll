@@ -11,7 +11,7 @@ const TextArea = ({ className, defaultValue, ...rest }: TextAreaProps) => {
     return (
         <textarea
             {...rest}
-            defaultValue={defaultValue || ''}
+            defaultValue={defaultValue || undefined}
             className={classNames(style.textarea, className && className)}
         ></textarea>
     )

@@ -12,7 +12,7 @@ const FileInput = ({
 }: {
     handleFileChange: Handler['handleFileChange']
     defaultValue?: string
-    handleFileCaptionChange: Handler['handleFileCaptionChange']
+    handleFileCaptionChange?: Handler['handleFileCaptionChange']
     caption?: ContentValueType['values']
 }) => {
     const [file, setFile] = useState<File | null>(null)
@@ -23,6 +23,7 @@ const FileInput = ({
 
     useEffect(() => {
         if (defaultValue) setPreview(defaultValue)
+        else setPreview(null)
     }, [defaultValue])
 
     useEffect(() => {
@@ -65,9 +66,10 @@ const FileInput = ({
                     <TextInput
                         key={id}
                         defaultValue={defaultValue}
-                        handleInput={(value) =>
-                            handleFileCaptionChange(id, value)
-                        }
+                        handleInput={(value) => {
+                            if (!!handleFileCaptionChange)
+                                handleFileCaptionChange(id, value)
+                        }}
                         label="Opcjonalny przypis do zdjęcia"
                     />
                 ))}
