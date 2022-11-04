@@ -4,6 +4,7 @@ import {
     faPencil,
     faBars,
     faPlus,
+    faMinus,
     faHome,
     faMoneyBill,
     faUser,
@@ -11,6 +12,10 @@ import {
     faBook,
     faRotateLeft,
     faCheck,
+    faRefresh,
+    faSort,
+    faSortUp,
+    faSortDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -18,13 +23,18 @@ library.add(
     faPencil,
     faBars,
     faPlus,
+    faMinus,
     faHome,
     faMoneyBill,
     faUser,
     faRightFromBracket,
     faBook,
     faRotateLeft,
-    faCheck
+    faCheck,
+    faRefresh,
+    faSort,
+    faSortUp,
+    faSortDown
 )
 
 const IconsProvider = ({ children }: { children: React.ReactElement }) =>

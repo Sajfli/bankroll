@@ -1,4 +1,4 @@
-import errors_json from './errors.json'
+import errors_json from './errorsScreen.json'
 
 const errors = errors_json as { [key: string]: string }
 

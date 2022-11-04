@@ -11,7 +11,7 @@ const Stages = () => {
     const location = useLocation()
 
     if (!params || !params.stage || !stages.includes(+params.stage)) {
-        return <Navigate to="/" />
+        return <Navigate to="/error/404" />
     } else {
         const stage = +params.stage!
 
@@ -28,7 +28,7 @@ const Stages = () => {
             typeof auth.stage !== 'number' ||
             auth.stage < stage
         ) {
-            return <Navigate to="/" />
+            return <Navigate to="/error/403" />
         } else return <Stage stage={stage} />
     }
 }

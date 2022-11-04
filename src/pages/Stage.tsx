@@ -31,7 +31,7 @@ const Stage = ({ stage }: { stage: number }) => {
                 if ((err! as HTTPError).response) {
                     try {
                         const error = (err as HTTPError).response
-                        if (error.status === 404) setError(404)
+                        if (error.status) setError(error.status)
                         else setError(400)
                     } catch (err) {
                         setError(500)
@@ -44,10 +44,7 @@ const Stage = ({ stage }: { stage: number }) => {
         }
     }, [stage])
 
-    if (error) {
-        if (error === 404) return <Navigate to="/404" />
-        else return <Navigate to="/" />
-    }
+    if (error) return <Navigate to={`/error/${error}`} />
 
     return <ParseArticle article={stageContent} type="stage" />
 }

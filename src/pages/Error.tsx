@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
 
-import messages from '@/utils/errors.json'
+import messages from '@/utils/errorsScreen.json'
 import ErrorMessage from '@/modules/molecules/ErrorMessage'
 
-const Errors = ['404', '500'] as const
+const Errors = ['404', '403', '500'] as const
 type tErrors = typeof Errors[number]
 const isValidError = (x: any): x is tErrors => Errors.includes(x)
 

@@ -1,0 +1,112 @@
+@use '@/utils/master' as m;
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+
+    position: relative;
+
+    thead {
+        font-weight: 700;
+
+        top: m.$nav_height;
+        left: 0;
+        position: sticky;
+
+        &:stuck {
+            display: none;
+        }
+
+        tr {
+            background-color: rgba(m.$colors_accent, 0.5);
+            backdrop-filter: blur(6px);
+
+            td:last-of-type {
+                text-align: center;
+            }
+
+            td:not(:first-of-type) {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+            }
+
+            td:not(:last-of-type) > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    }
+
+    tbody {
+        background-color: rgba(31, 31, 31, 0.658);
+
+        tr {
+            &:nth-of-type(2n) {
+                background-color: rgba(20, 20, 20, 0.486);
+            }
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.062);
+            }
+
+            &.admin {
+                .name {
+                    color: m.$colors_accent;
+                    font-weight: 700;
+                }
+            }
+
+            &:not(.clicked) {
+                cursor: pointer;
+            }
+
+            .stage {
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+
+                    & > div:first-of-type {
+                        text-align: center;
+                    }
+
+                    .buttons {
+                        $size: 20px;
+                        display: none;
+                        justify-content: center;
+                        flex-direction: row;
+
+                        button {
+                            width: fit-content;
+                            min-width: $size;
+                            min-height: $size;
+                            // height: $size;
+                            // width: $size;
+                            width: fit-content;
+                            height: fit-content;
+                            font-size: 0.7rem;
+                            padding: 2px 5px;
+                            margin: 5px;
+                        }
+                    }
+                }
+            }
+
+            &.clicked {
+                background-color: rgba(255, 255, 255, 0.082);
+                .buttons {
+                    display: flex !important;
+                }
+            }
+        }
+    }
+    td {
+        padding: 10px 15px;
+    }
+}

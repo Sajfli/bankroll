@@ -15,6 +15,7 @@ import EditArticle from '@/pages/Admin/EditArticle'
 import PanelBanks from '@/pages/Admin/PanelBanks'
 import EditBank from '@/pages/Admin/EditBank'
 import BankAccountEditor from '@/modules/organisms/Admin/Editor/BankAccountEditor'
+import ManageUsers from '@/pages/Admin/ManageUsers'
 
 const router = createBrowserRouter([
     {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
                                 element: <BankAccountEditor />,
                             },
                         ],
+                    },
+                    {
+                        path: 'users',
+                        element: <ManageUsers />,
                     },
                 ],
             },

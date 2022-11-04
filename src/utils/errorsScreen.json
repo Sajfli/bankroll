@@ -1,5 +1,6 @@
 {
     "404": "Nie znaleziono",
+    "403": "Nie masz dostępu do tego zasobu",
     "500": "Nieoczekiwany błąd serwera",
     "unknown": "Wystąpił nieznany błąd",
     "unknown500": "Wystąpił nieznany błąd serwera",

@@ -35,7 +35,7 @@ const PanelBanks = () => {
 
     return (
         <div>
-            <h2>Banki</h2>
+            <h1 style={{ textAlign: 'center' }}>Banki</h1>
             <BanksList
                 setBanks={setBanks}
                 banks={banks}
@@ -47,7 +47,7 @@ const PanelBanks = () => {
                 <Outlet context={{ setBanks, banks }} />
             )}
 
-            <h2>Konta bankowe</h2>
+            <h1 style={{ textAlign: 'center' }}>Konta bankowe</h1>
             <EditBankAccount
                 banks={banks}
                 currentOutlet={currentOutlet}
