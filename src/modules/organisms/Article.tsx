@@ -187,4 +187,18 @@ const ParseArticle = ({ article, type }: ParseArticleProps) => {
     )
 }
 
-export default ParseArticle
+const ArticleNoParse = ({
+    type,
+    children,
+}: {
+    type: ParseArticleProps['type']
+    children: React.ReactNode[]
+}) => {
+    return (
+        <div className={type || 'stage'}>
+            <article>{children}</article>
+        </div>
+    )
+}
+
+export { ParseArticle as default, ArticleNoParse }

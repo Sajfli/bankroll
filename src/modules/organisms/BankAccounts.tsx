@@ -61,7 +61,7 @@ const BankAccounts = ({
         return () => {
             mounted = false
         }
-    }, [rerender])
+    }, [rerender, all])
 
     useEffect(() => {
         if (!selectedBank) setBankAccounts(content || null)

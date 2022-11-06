@@ -23,6 +23,7 @@ const Header = () => {
                       location: `/etap/${n}`,
                   })),
               },
+        { label: 'FAQ', location: '/faq', icon: 'circle-question' },
         !auth.isAuthed
             ? {
                   label: 'Zaloguj się',

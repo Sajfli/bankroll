@@ -6,11 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useOutletContext } from 'react-router-dom'
 
-import sassVariables from '@/utils/variables.module.scss'
+import * as sassVariables from '@/utils/variables.module.scss'
 
 import style from './BankAccountEditor.module.scss'
 import { ReactSortable } from 'react-sortablejs'
-import classNames from 'classnames'
 import Button from '@/modules/atoms/Button'
 import { handleKyErrorToast } from '@/utils/handleKyError'
 import useToast, { standardUpdateOptions } from '@/hooks/useToast'

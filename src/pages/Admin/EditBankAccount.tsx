@@ -1,16 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
-import { ReactSortable } from 'react-sortablejs'
 import BankAccounts from '@/modules/organisms/BankAccounts'
 import style from './EditBankAccount.module.scss'
 import { Link, Outlet } from 'react-router-dom'
 import classNames from 'classnames'
-import {
-    Bank,
-    BankAccount,
-    ModalContext,
-    ToastContextType,
-} from '@/types/utils'
+import { Bank, BankAccount } from '@/types/utils'
 import Button from '@/modules/atoms/Button'
 import useToast, { standardUpdateOptions } from '@/hooks/useToast'
 import useModal from '@/hooks/useModal'
