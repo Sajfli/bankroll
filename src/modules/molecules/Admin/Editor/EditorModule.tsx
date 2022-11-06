@@ -1,4 +1,5 @@
-import { Handler, Modules, ContentValueType } from '@/types/editor'
+import { Handler, ContentValueType } from '@/types/editor'
+import { Modules } from '@/types/article'
 
 import EditorModules from '@/utils/ArticleModules'
 

@@ -15,7 +15,11 @@ const EditorImage = ({
         <FileInput
             handleFileChange={handler.handleFileChange}
             handleFileCaptionChange={handler.handleFileCaptionChange}
-            defaultValue={defaultValue}
+            defaultValue={
+                typeof defaultValue === 'string'
+                    ? (defaultValue as string)
+                    : undefined
+            }
             caption={caption}
         />
     )
