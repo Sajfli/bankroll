@@ -5,7 +5,7 @@ $font_color: rgba($font_color_noalpha, 0.88);
 
 $header_height: 50px;
 $nav_height: 40px;
-$footer_height: 60px;
+$footer_height: 80px;
 
 $standard_transition_time: 0.3s;
 
@@ -36,5 +36,13 @@ $standard_transition_time: 0.3s;
         color: $color;
 
         filter: drop-shadow(0 0 2px $color);
+    }
+}
+
+// medias
+
+@mixin mobile {
+    @media screen and (max-width: 1000px) {
+        @content;
     }
 }

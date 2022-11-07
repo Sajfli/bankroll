@@ -1,7 +1,7 @@
 @use '@/utils/master' as m;
 
 .footer {
-    height: m.$footer_height;
+    min-height: m.$footer_height;
     width: 100%;
 
     background-color: m.$colors_accent;
@@ -9,8 +9,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+
+    padding: 10px;
 
     font-size: 1.1rem;
+
+    p {
+        padding: 0;
+    }
 
     a {
         color: m.$font_color;
@@ -23,14 +30,21 @@
     ul {
         display: flex;
         list-style: none;
+        flex-wrap: wrap;
+        justify-content: center;
         margin: 0;
         padding: 0;
         li {
             margin: 0 5px;
+            text-decoration: underline;
         }
     }
 
     div {
         margin: 0 20px;
+    }
+
+    @include m.mobile {
+        // font-size: 0.9rem;
     }
 }

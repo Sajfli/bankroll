@@ -3,12 +3,12 @@ import style from './Footer.module.scss'
 
 const Footer = () => {
     return (
-        <div className={style.footer}>
-            <div>
-                <p>szymonjez.pl &copy; Szymon Jeż, 2022</p>
-            </div>
-            <div>
-                <nav>
+        <footer>
+            <div className={style.footer}>
+                <div>
+                    <p>szymonjez.pl &copy; Szymon Jeż, 2022</p>
+                </div>
+                <div>
                     <ul>
                         <li>
                             <Link to="/">Strona główna</Link>
@@ -29,9 +29,9 @@ const Footer = () => {
                             </a>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </div>
-        </div>
+        </footer>
     )
 }
 
