@@ -24,11 +24,11 @@ const Home = () => {
                 <p>
                     Praca, którą Ci tutaj pokażę polega na współpracy z
                     programami partnerskimi. Jest to w pełni legalne. Jedyne
-                    warunki jakie musisz spełnić to:{' '}
+                    warunki jakie musisz spełnić to:
                 </p>
                 <ul>
                     <li>Mieć ukończone 18 lat</li>
-                    <li>Posiadać polskie obywatelstwo</li>
+                    <li>Posiadać Polskie obywatelstwo</li>
                     <li>Mieszkać w polsce</li>
                     <li>Mieć chęci do nauczenia się czegoś nowego</li>
                 </ul>

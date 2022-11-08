@@ -240,32 +240,32 @@ const Faq = () => {
                             procesu sobie jak i Tobie. Dzięki niej mogę do
                             każdego indywidualnie przypisywać dostęp do
                             kolejnych etapów. Aby z niej korzystać wystarczy, że
-                            zalogujesz się przez facebooka korzystając z
+                            zalogujesz się przez Facebooka korzystając z
                             przycisku w nawigacji, na górze strony.
                         </p>
                     </li>
                     <li>
-                        <p>Czemu mam logować się przez facebooka?</p>
+                        <p>Czemu mam logować się przez Facebooka?</p>
                         <p>
-                            Ponieważ i tak kontaktujemy się przez facebooka, a
+                            Ponieważ i tak kontaktujemy się przez Facebooka, a
                             logowanie tutaj przy użyciu tamtego konta bardzo
                             ułatwia proces połączenia tego z kim rozmawiam przez
                             messengera, a kogo mam kliknąc tutaj.
                         </p>
                     </li>
                     <li>
-                        <p>Czy bezpiecznie jest logować się przez facebooka?</p>
+                        <p>Czy bezpiecznie jest logować się przez Facebooka?</p>
                         <p>
                             Nie chcę wchodzić za bardzo w sprawy techniczne,
                             więc powiem w skrócie - korzystam z narzędzi
-                            stworzonych przez facebooka, które powstały właśnie
+                            stworzonych przez Facebooka, które powstały właśnie
                             w tym celu - uwierzetylnianiu użytkownika przez
-                            facebookowe konta.
+                            Facebookowe konta.
                         </p>
                     </li>
                     <li>
                         <p>
-                            Skoro loguje się tu przez facebooka to jakie dane są
+                            Skoro loguje się tu przez Facebooka to jakie dane są
                             przechowywane przez tę stronę?
                         </p>
                         <p>Danymi, którę przechowuej są:</p>
@@ -273,7 +273,7 @@ const Faq = () => {
                             <li>Imię i nazwisko</li>
                             <li>Link do zdjęcia profilowego</li>
                             <li>
-                                Id tworzone przez facebooka, tylko w celu
+                                Id tworzone przez Facebooka, tylko w celu
                                 połączenia konta FB i lokalnego
                             </li>
                         </ul>
@@ -284,7 +284,7 @@ const Faq = () => {
                             podaje ich dalej, ani nie wykorzuje ich w żadnym
                             innym celu. Dodatkowo, są to informacje, które może
                             zobaczyć każdy po prostu wyszukując cię na
-                            facebooku, bądź messengerze. Możesz je także w
+                            Facebooku, bądź messengerze. Możesz je także w
                             każdym momencie usunąć korzystając z przycisku
                             znajdującego się na Twoim profilu. W razie
                             jakichkolwiek wątpliwości możesz się ze mną

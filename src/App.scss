@@ -10,7 +10,7 @@ a {
 
 .content {
     min-height: calc(
-        100vh - (m.$nav_height + m.$header_height + m.$header_height + 10px)
+        100vh - (m.$nav_height + m.$header_height + m.$footer_height)
     );
 
     margin: 0 auto;
