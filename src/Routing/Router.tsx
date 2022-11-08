@@ -17,11 +17,13 @@ import EditBank from '@/pages/Admin/EditBank'
 import BankAccountEditor from '@/modules/organisms/Admin/Editor/BankAccountEditor'
 import ManageUsers from '@/pages/Admin/ManageUsers'
 import Faq from '@/pages/Faq'
+import PrivacyPolicy from '@/pages/PrivacyPolicy'
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Root />,
+        errorElement: <Navigate to="/error/404" />,
         children: [
             {
                 index: true,
@@ -38,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: 'faq',
                 element: <Faq />,
+            },
+            {
+                path: 'polityka-prywatnosci',
+                element: <PrivacyPolicy />,
             },
             {
                 path: 'panel',
@@ -90,10 +96,6 @@ const router = createBrowserRouter([
             {
                 path: '/error/:err',
                 element: <Error />,
-            },
-            {
-                path: '/api/*',
-                element: <></>,
             },
             {
                 path: '*',
