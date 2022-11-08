@@ -1,6 +1,6 @@
 import { ArticleNoParse } from '@/modules/organisms/Article'
 import { useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './Faq.scss'
 import { topOffset } from '@/utils/variables.module.scss'
 
@@ -268,10 +268,14 @@ const Faq = () => {
                             Skoro loguje się tu przez Facebooka to jakie dane są
                             przechowywane przez tę stronę?
                         </p>
-                        <p>Danymi, którę przechowuej są:</p>
+                        <p>Danymi, którę przechowję są:</p>
                         <ul>
                             <li>Imię i nazwisko</li>
                             <li>Link do zdjęcia profilowego</li>
+                            <li>
+                                Adres e-mail, w przypadku podania mi go przez
+                                serwis Facebook
+                            </li>
                             <li>
                                 Id tworzone przez Facebooka, tylko w celu
                                 połączenia konta FB i lokalnego
@@ -280,15 +284,26 @@ const Faq = () => {
                         <p>
                             Tylko tyle, więcej informacji nie potrzebuję,
                             wszystkie Twoje informacje są wykorzystywane tylko w
-                            celu dawania ci dostępu do kolejnych etapów. Nie
-                            podaje ich dalej, ani nie wykorzuje ich w żadnym
-                            innym celu. Dodatkowo, są to informacje, które może
-                            zobaczyć każdy po prostu wyszukując cię na
-                            Facebooku, bądź messengerze. Możesz je także w
-                            każdym momencie usunąć korzystając z przycisku
-                            znajdującego się na Twoim profilu. W razie
-                            jakichkolwiek wątpliwości możesz się ze mną
-                            kontaktować przez messengera.
+                            celu dawania ci dostępu do kolejnych etapów. Adres
+                            e-mail jest mi potrzebny tylko w celu wysłania
+                            informacji o ewentualnej zmianie regulaminu, bądź
+                            polityki prywatności. Nie podaje ich dalej, ani nie
+                            wykorzuje ich w żadnym innym celu. Dodatkowo, są to
+                            informacje, które może zobaczyć każdy po prostu
+                            wyszukując cię na Facebooku, bądź messengerze
+                            (pomijając adres e-mail). Możesz je także w każdym
+                            momencie usunąć korzystając z przycisku znajdującego
+                            się na Twoim profilu. W razie jakichkolwiek
+                            wątpliwości możesz się ze mną kontaktować przez
+                            messengera.
+                        </p>
+                        <p>
+                            Dodatkowo, wszystkie informacje o przetwarzaniu i
+                            przechowywaniu przeze mnie danych uzytkowników
+                            dostępne są w{' '}
+                            <Link to="/polityka-prywatnosci">
+                                polityce prywatności
+                            </Link>
                         </p>
                     </li>
                 </ol>

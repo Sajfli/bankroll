@@ -1,6 +1,10 @@
+import useScrollTop from '@/hooks/useScrollTop'
 import { ArticleNoParse } from '@/modules/organisms/Article'
+import { Link } from 'react-router-dom'
 
 const PrivacyPolicy = () => {
+    useScrollTop()
+
     return (
         <ArticleNoParse type="stage">
             <h1 style={{ textAlign: 'center' }}>Polityka Prywatności</h1>
@@ -21,9 +25,8 @@ const PrivacyPolicy = () => {
             </p>
             <p>
                 Poniższa Polityka Prywatności jest integralną częścią{' '}
-                <a href="https://szymonjez.pl/regulamin">Regulaminu Serwisu</a>,
-                który określa zasady, prawa i obowiązki Użytkowników
-                korzystających z Serwisu.
+                <Link to="/regulamin">Regulaminu Serwisu</Link>, który określa
+                zasady, prawa i obowiązki Użytkowników korzystających z Serwisu.
             </p>
             <h2 style={{ textAlign: 'center' }}>§1 Definicje</h2>
             <ul>
@@ -33,46 +36,44 @@ const PrivacyPolicy = () => {
                         "szymonjez.pl" działający pod adresem
                         https://szymonjez.pl
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Serwis zewnętrzny</strong> - serwisy internetowe
                         partnerów, usługodawców lub usługobiorców
                         współpracujących z Administratorem
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Administrator Serwisu / Danych</strong> -
                         Administratorem Serwisu oraz Administratorem Danych
-                        (dalej Administrator) jest firma "ZP20 Piotr Markowski",
-                        prowadząca działalność pod adresem: Al. KEN 36 / 112B,
-                        WARSZAWA, o nadanym numerze identyfikacji podatkowej
-                        (NIP): 9482256434, świadcząca usługi drogą elektroniczną
-                        za pośrednictwem Serwisu
+                        (dalej Administrator) jest osoba fizyczna "Szymon Jeż"
+                        zamieszkała w Warszawie, świadcząca usługi drogą
+                        elektroniczną za pośrednictwem Serwisu
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Użytkownik</strong> - osoba fizyczna, dla której
                         Administrator świadczy usługi drogą elektroniczną za
                         pośrednictwem Serwisu.
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Urządzenie</strong> - elektroniczne urządzenie
                         wraz z oprogramowaniem, za pośrednictwem którego
                         Użytkownik uzyskuje dostęp do Serwisu
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Cookies (ciasteczka)</strong> - dane tekstowe
                         gromadzone w formie plików zamieszczanych na Urządzeniu
                         Użytkownika
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>RODO</strong> - Rozporządzenie Parlamentu
@@ -80,9 +81,9 @@ const PrivacyPolicy = () => {
                         2016 r. w sprawie ochrony osób fizycznych w związku z
                         przetwarzaniem danych osobowych i w sprawie swobodnego
                         przepływu takich danych oraz uchylenia dyrektywy
-                        95/46/WE (ogólne rozporządzenie o ochronie danych){' '}
+                        95/46/WE (ogólne rozporządzenie o ochronie danych)
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Dane osobowe</strong> - oznaczają informacje o
@@ -95,9 +96,9 @@ const PrivacyPolicy = () => {
                         lokalizacji, identyfikator internetowy lub jeden bądź
                         kilka szczególnych czynników określających fizyczną,
                         fizjologiczną, genetyczną, psychiczną, ekonomiczną,
-                        kulturową lub społeczną tożsamość osoby fizycznej{' '}
+                        kulturową lub społeczną tożsamość osoby fizycznej
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Przetwarzanie</strong> - oznacza operację lub
@@ -109,16 +110,16 @@ const PrivacyPolicy = () => {
                         wykorzystywanie, ujawnianie poprzez przesłanie,
                         rozpowszechnianie lub innego rodzaju udostępnianie,
                         dopasowywanie lub łączenie, ograniczanie, usuwanie lub
-                        niszczenie;{' '}
+                        niszczenie;
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Ograniczenie przetwarzania</strong> - oznacza
                         oznaczenie przechowywanych danych osobowych w celu
-                        ograniczenia ich przyszłego przetwarzania{' '}
+                        ograniczenia ich przyszłego przetwarzania
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Profilowanie</strong> - oznacza dowolną formę
@@ -129,9 +130,9 @@ const PrivacyPolicy = () => {
                         dotyczących efektów pracy tej osoby fizycznej, jej
                         sytuacji ekonomicznej, zdrowia, osobistych preferencji,
                         zainteresowań, wiarygodności, zachowania, lokalizacji
-                        lub przemieszczania się{' '}
+                        lub przemieszczania się
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Zgoda</strong> - zgoda osoby, której dane
@@ -139,9 +140,9 @@ const PrivacyPolicy = () => {
                         jednoznaczne okazanie woli, którym osoba, której dane
                         dotyczą, w formie oświadczenia lub wyraźnego działania
                         potwierdzającego, przyzwala na przetwarzanie dotyczących
-                        jej danych osobowych{' '}
+                        jej danych osobowych
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Naruszenie ochrony danych osobowych</strong> -
@@ -150,9 +151,9 @@ const PrivacyPolicy = () => {
                         utracenia, zmodyfikowania, nieuprawnionego ujawnienia
                         lub nieuprawnionego dostępu do danych osobowych
                         przesyłanych, przechowywanych lub w inny sposób
-                        przetwarzanych{' '}
+                        przetwarzanych
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Pseudonimizacja</strong> - oznacza przetworzenie
@@ -162,7 +163,7 @@ const PrivacyPolicy = () => {
                         takie dodatkowe informacje są przechowywane osobno i są
                         objęte środkami technicznymi i organizacyjnymi
                         uniemożliwiającymi ich przypisanie zidentyfikowanej lub
-                        możliwej do zidentyfikowania osobie fizycznej{' '}
+                        możliwej do zidentyfikowania osobie fizycznej
                     </p>
                 </li>
                 <li>
@@ -193,7 +194,7 @@ const PrivacyPolicy = () => {
                         i odczytywane z Urządzenia Użytkownika przez system
                         teleinformatyczny Serwisu
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Cookies zewnętrzne</strong> - pliki zamieszczane
@@ -202,9 +203,9 @@ const PrivacyPolicy = () => {
                         Serwisów zewnętrznych, które mogą umieszczać pliki
                         Cookies na Urządzeniach Użytkownika zostały świadomie
                         umieszczone w Serwisie poprzez skrypty i usługi
-                        udostępnione i zainstalowane w Serwisie{' '}
+                        udostępnione i zainstalowane w Serwisie
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Cookies sesyjne</strong> - pliki zamieszczane i
@@ -215,7 +216,7 @@ const PrivacyPolicy = () => {
                         podczas jednej sesji danego Urządzenia. Po zakończeniu
                         sesji pliki są usuwane z Urządzenia Użytkownika.
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Cookies trwałe</strong> - pliki zamieszczane i
@@ -239,7 +240,7 @@ const PrivacyPolicy = () => {
                     <p>
                         <strong>
                             Mechanizmy składowania i odczytu plików Cookie
-                        </strong>{' '}
+                        </strong>
                         - Mechanizmy składowania, odczytu i wymiany danych
                         pomiędzy Plikami Cookies zapisywanymi na Urządzeniu
                         Użytkownika a Serwisem są realizowane poprzez wbudowane
@@ -251,7 +252,7 @@ const PrivacyPolicy = () => {
                         wirusów, koni trojańskich oraz innych robaków jest także
                         praktycznie niemożliwe.
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Cookie wewnętrzne</strong> - zastosowane przez
@@ -261,7 +262,7 @@ const PrivacyPolicy = () => {
                         osobowych lub bezpieczeństwu Urządzenia z którego
                         korzysta Użytkownik.
                     </p>
-                </li>{' '}
+                </li>
                 <li>
                     <p>
                         <strong>Cookie zewnętrzne</strong> - Administrator
@@ -393,12 +394,12 @@ const PrivacyPolicy = () => {
                         oprogramowania szpiegującego, którymi może jest lub było
                         zainfekowane Urządzenie Użytkownika. Użytkownicy w celu
                         zabezpieczenia się przed tymi zagrożeniami powinni
-                        stosować się do{' '}
+                        stosować się do zasad zwiększających ich{' '}
                         <a
                             rel="external"
                             href="https://nety.pl/cyberbezpieczenstwo/"
                         >
-                            zasad bezpiecznego korzystania z sieci internet
+                            cyberbezpieczeństwo
                         </a>
                         .
                     </p>
@@ -425,7 +426,7 @@ const PrivacyPolicy = () => {
                 <li>Usprawnienie i ułatwienie dostępu do Serwisu</li>
                 <li>Personalizacja Serwisu dla Użytkowników</li>
                 <li>Umożliwienie Logowania do serwisu</li>
-                <li>Marketing, Remarketing w serwisach zewnętrznych</li>
+                <li>Marketing, Remarketing w serwisach zewnętrznych</li>{' '}
                 <li>Usługi afiliacyjne</li>
                 <li>Serwowanie usług multimedialnych</li>
                 <li>Świadczenie usług społecznościowych</li>
@@ -531,9 +532,8 @@ const PrivacyPolicy = () => {
             </p>
             <ul>
                 <li>Imię / nazwisko / pseudonim</li>
+                <li>Adres e-mail</li>
                 <li>Avatar / Zdjęcie profilowe</li>
-                <li>Data utworzenia profilu</li>
-                <li>Numer identyfikacyjny tworzony przez Facebooka</li>
             </ul>
             <p>
                 Część danych (bez danych identyfikujących) może być
@@ -755,14 +755,14 @@ const PrivacyPolicy = () => {
                         niezwłocznego usunięcia danych osobowych, realizowane za
                         pośrednictwem panelu użytkownika dostępnego po
                         zalogowaniu i narzędzi umożliwiających dostęp do konta w
-                        przypadku zapomnianego hasła.W przypadku kont
-                        użytkowników, usunięcie danych polega na anonimizacji
-                        danych umożliwiających identyfikację Użytkownika.
-                        Administrator zastrzega sobie prawo wstrzymania
-                        realizacji żądania usunięcia danych w celu ochrony
-                        prawnie uzasadnionego interesu Administratora (np. w gdy
-                        Użytkownik dopuścił się naruszenia Regulaminu czy dane
-                        zostały pozyskane wskutek prowadzonej korespondencji).
+                        przypadku zapomnianego hasła. W przypadku kont
+                        użytkowników, usunięcie danych polega na usunięciu
+                        danych z serwera. Administrator zastrzega sobie prawo
+                        wstrzymania realizacji żądania usunięcia danych w celu
+                        ochrony prawnie uzasadnionego interesu Administratora
+                        (np. w gdy Użytkownik dopuścił się naruszenia Regulaminu
+                        czy dane zostały pozyskane wskutek prowadzonej
+                        korespondencji).
                         <br />W przypadku usługi Newsletter, Użytkownik ma
                         możliwość samodzielnego usunięcia swoich danych
                         osobowych korzystając z odnośnika umieszczonego w każdej
@@ -824,22 +824,22 @@ const PrivacyPolicy = () => {
                 sposobów
             </p>
             <ul>
+                {' '}
                 <li>
                     <p>
                         <strong>Adres poczty elektronicznej</strong> -
                         sajmon88@protonmail.ch
                     </p>
-                </li>
+                </li>{' '}
                 <li>
                     <p>
-                        <strong>Przy użyciu messengera</strong> - dostępny pod
-                        tym{' '}
+                        <strong>Messenger</strong> - przy użyciu{' '}
                         <a
                             href="https://m.me/szymon.jez.773/"
                             target="_blank"
                             rel="noreferrer"
                         >
-                            linkiem
+                            tego linka
                         </a>
                     </p>
                 </li>
@@ -892,20 +892,23 @@ const PrivacyPolicy = () => {
                         Danych Osobowych, o czym poinformuje Użytkowników
                         posiadających konta użytkownika lub zapisanych do usługi
                         newsletter, za pośrednictwem poczty elektronicznej w
-                        terminie do 7 dni od zmiany zapisów. Dalsze korzystanie
-                        z usług oznacza zapoznanie się i akceptację
-                        wprowadzonych zmian Polityki Prywatności. W przypadku w
-                        którym Użytkownik nie będzie się zgadzał z wprowadzonymi
-                        zmianami, ma obowiązek usunąć swoje konto z Serwisu lub
-                        wypisać się z usługi Newsletter.
+                        terminie do 7 dni od zmiany zapisów. W przypadku, w
+                        którym Facebook nie da Administratorowi dostępu do
+                        adresu e-mail kontakt nastąpi poprzez komunikator
+                        Messenger. Dalsze korzystanie z usług oznacza zapoznanie
+                        się i akceptację wprowadzonych zmian Polityki
+                        Prywatności. W przypadku w którym Użytkownik nie będzie
+                        się zgadzał z wprowadzonymi zmianami, ma obowiązek
+                        usunąć swoje konto z Serwisu lub wypisać się z usługi
+                        Newsletter.
                     </p>
-                </li>
+                </li>{' '}
                 <li>
                     <p>
                         Wprowadzone zmiany w Polityce Prywatności będą
                         publikowane na tej podstronie Serwisu.
                     </p>
-                </li>
+                </li>{' '}
                 <li>
                     <p>
                         Wprowadzone zmiany wchodzą w życie z chwilą ich
@@ -913,9 +916,9 @@ const PrivacyPolicy = () => {
                     </p>
                 </li>
             </ul>
+
             <p>
-                <b>Data publikacji aktualnej wersji polityki prywatności:</b> 8
-                listopada 2022 roku
+                <b>Data aktualizacji polityki prywatności:</b> 8.11.2022
             </p>
         </ArticleNoParse>
     )

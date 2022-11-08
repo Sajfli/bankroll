@@ -17,9 +17,15 @@ const Footer = () => {
                             <Link to="/faq">Najczęściej zadawane pytania</Link>
                         </li>
                         <li>
+                            <Link to="/regulamin">Regulamin</Link>
+                        </li>
+                        <li>
                             <Link to="/polityka-prywatnosci">
                                 Polityka prywatności
                             </Link>
+                        </li>
+                        <li>
+                            <Link to="/RODO">Obowiązek informacyjny RODO</Link>
                         </li>
                         <li>
                             <Link to="/etap/1">Etap 1</Link>

@@ -18,6 +18,8 @@ import BankAccountEditor from '@/modules/organisms/Admin/Editor/BankAccountEdito
 import ManageUsers from '@/pages/Admin/ManageUsers'
 import Faq from '@/pages/Faq'
 import PrivacyPolicy from '@/pages/PrivacyPolicy'
+import RODO from '@/pages/RODO'
+import Terms from '@/pages/Terms'
 
 const router = createBrowserRouter([
     {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
             {
                 path: 'polityka-prywatnosci',
                 element: <PrivacyPolicy />,
+            },
+            {
+                path: 'rodo',
+                element: <RODO />,
+            },
+            {
+                path: 'regulamin',
+                element: <Terms />,
             },
             {
                 path: 'panel',
