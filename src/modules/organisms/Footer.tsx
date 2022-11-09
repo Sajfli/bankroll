@@ -14,6 +14,9 @@ const Footer = () => {
                             <Link to="/">Strona główna</Link>
                         </li>
                         <li>
+                            <Link to="/etap/1">Etap 1</Link>
+                        </li>
+                        <li>
                             <Link to="/faq">Najczęściej zadawane pytania</Link>
                         </li>
                         <li>
@@ -26,9 +29,6 @@ const Footer = () => {
                         </li>
                         <li>
                             <Link to="/RODO">Obowiązek informacyjny RODO</Link>
-                        </li>
-                        <li>
-                            <Link to="/etap/1">Etap 1</Link>
                         </li>
                         <li>
                             <a

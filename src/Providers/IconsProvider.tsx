@@ -17,6 +17,9 @@ import {
     faSortUp,
     faSortDown,
     faCircleQuestion,
+    faShield,
+    faKey,
+    faBookOpen,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -36,7 +39,10 @@ library.add(
     faSort,
     faSortUp,
     faSortDown,
-    faCircleQuestion
+    faCircleQuestion,
+    faShield,
+    faKey,
+    faBookOpen
 )
 
 const IconsProvider = ({ children }: { children: React.ReactElement }) =>

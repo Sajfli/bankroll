@@ -2,16 +2,20 @@ import { AuthProvider } from '@/hooks/useAuth'
 import { ModalProvider } from '@/hooks/useModal'
 import PropTypes from 'prop-types'
 
-import { NodeChildren } from '@/types/children'
 import { ToastProvider } from '@/hooks/useToast'
 import IconsProvider from './IconsProvider'
+// import CookiesApproveProvider from './CookiesApproveProvider'
 
-const RootProvider = ({ children }: NodeChildren) => {
+const RootProvider = ({ children }: { children: React.ReactElement }) => {
     return (
         <AuthProvider>
             <IconsProvider>
                 <ToastProvider>
-                    <ModalProvider>{children}</ModalProvider>
+                    <ModalProvider>
+                        {/* <CookiesApproveProvider> */}
+                        {children}
+                        {/* </CookiesApproveProvider> */}
+                    </ModalProvider>
                 </ToastProvider>
             </IconsProvider>
         </AuthProvider>

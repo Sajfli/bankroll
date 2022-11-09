@@ -20,6 +20,7 @@ import Faq from '@/pages/Faq'
 import PrivacyPolicy from '@/pages/PrivacyPolicy'
 import RODO from '@/pages/RODO'
 import Terms from '@/pages/Terms'
+import AccountRemoveInstructions from '@/pages/AccountRemoveInstructions'
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: 'regulamin',
                 element: <Terms />,
+            },
+            {
+                path: 'jak-usunac-konto',
+                element: <AccountRemoveInstructions />,
             },
             {
                 path: 'panel',
