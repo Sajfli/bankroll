@@ -13,7 +13,8 @@ export type Subpath = {
     icon?: iconDefinition
     localImage?: 'facebook'
     image?: string | null
-    external?: boolean
+    type?: 'external' | 'internal' | 'handler'
+    handler?: React.MouseEventHandler<HTMLElement>
 }
 
 export interface Path extends Subpath {

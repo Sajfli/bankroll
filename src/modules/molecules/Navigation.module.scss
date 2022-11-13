@@ -24,6 +24,8 @@ $liPaddingHorizontal: 20px;
         align-items: center;
         list-style: none;
 
+        flex-wrap: wrap;
+
         & > li {
             height: 100%;
             font-size: 1.2rem;
@@ -64,6 +66,8 @@ $liPaddingHorizontal: 20px;
                 position: relative;
 
                 padding: $liPaddingVertical $liPaddingHorizontal;
+
+                cursor: pointer;
             }
 
             &:hover .subpaths {
@@ -103,10 +107,7 @@ $liPaddingHorizontal: 20px;
     &.mobile {
         height: min-content;
 
-        position: static;
-
         & > ul {
-            display: block;
             min-height: m.$nav_height;
             height: fit-content;
 
@@ -116,18 +117,14 @@ $liPaddingHorizontal: 20px;
                         display: none;
                     }
                 }
-            }
-        }
 
-        .open .subpaths {
-            display: block !important;
-        }
+                @include m.mobile {
+                    font-size: 1.8rem;
+                }
 
-        .subpaths {
-            display: none;
-            position: static !important;
-            li {
-                background-color: transparent;
+                @include m.min {
+                    font-size: 1.4rem;
+                }
             }
         }
     }

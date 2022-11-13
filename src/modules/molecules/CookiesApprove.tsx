@@ -1,31 +1,46 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import Button from '../atoms/Button'
 import style from './CookiesApprove.module.scss'
 
 import * as manageCookies from '@/utils/manageCookies'
+import useCookiesApprove from '@/hooks/useCookiesApprove'
 
 const CookiesApprove = () => {
+    const { show, setShow, blur, setBlur, acceptCallback, setAcceptCallback } =
+        useCookiesApprove()
+
     const location = useLocation()
-
-    const [blur, setBlur] = useState<boolean>(false)
-    const [show, setShow] = useState<boolean>(false)
-
-    useEffect(() => {
-        if (location.pathname === '/') setBlur(true)
-        else setBlur(false)
-    }, [location])
 
     useEffect(() => {
         const accepted = manageCookies.getCookie('accepted')
-        if (accepted !== 'true') setShow(true)
-    }, [])
+        if (accepted !== 'true') {
+            if (
+                [
+                    '/regulamin',
+                    '/polityka-prywatnosci',
+                    '/RODO',
+                    '/faq',
+                ].includes(location.pathname)
+            )
+                return setShow(false)
+
+            if (location.pathname === '/') setBlur(true)
+            else setBlur(false)
+
+            setShow(true)
+        } else setShow(false)
+    }, [location, setBlur, setShow])
 
     const handleAccept = () => {
         manageCookies.setCookie('accepted', 'true')
         setShow(false)
+        if (acceptCallback && typeof acceptCallback === 'function') {
+            acceptCallback()
+            setAcceptCallback(undefined)
+        }
     }
 
     return (
@@ -65,27 +80,27 @@ const CookiesApprove = () => {
                         </p>
                     </div>
                     <div className={style.icons}>
-                        <a href="RODO" target="_blank">
+                        <Link to="RODO">
                             <FontAwesomeIcon
                                 className={style.icon}
                                 icon="shield"
                             />
                             RODO
-                        </a>
-                        <a href="polityka-prywatnosci" target="_blank">
+                        </Link>
+                        <Link to="polityka-prywatnosci">
                             <FontAwesomeIcon
                                 className={style.icon}
                                 icon="key"
                             />
                             Polityka Prywatności
-                        </a>
-                        <a href="regulamin" target="_blank">
+                        </Link>
+                        <Link to="regulamin">
                             <FontAwesomeIcon
                                 className={style.icon}
                                 icon="book-open"
                             />
                             Regulamin
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className={style.approve}>

@@ -21,6 +21,7 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy'
 import RODO from '@/pages/RODO'
 import Terms from '@/pages/Terms'
 import AccountRemoveInstructions from '@/pages/AccountRemoveInstructions'
+import StageList from '@/pages/StageList'
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
+            },
+            {
+                path: 'etapy',
+                element: <StageList />,
             },
             {
                 path: 'etap/:stage',

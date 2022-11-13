@@ -20,6 +20,7 @@ import {
     faShield,
     faKey,
     faBookOpen,
+    faLock,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -42,7 +43,8 @@ library.add(
     faCircleQuestion,
     faShield,
     faKey,
-    faBookOpen
+    faBookOpen,
+    faLock
 )
 
 const IconsProvider = ({ children }: { children: React.ReactElement }) =>

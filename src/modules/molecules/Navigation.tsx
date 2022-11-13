@@ -1,6 +1,6 @@
 import style from './Navigation.module.scss'
 import { Link } from 'react-router-dom'
-import { Key, ReactElement, useEffect, useState } from 'react'
+import { Key, ReactElement } from 'react'
 import { Path } from '@/types/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
@@ -13,18 +13,26 @@ const images = {
 
 const Lnk = ({
     location,
-    external,
+    type,
     children,
+    handler,
 }: {
     location: string
-    external: boolean
+    type: Path['type']
     children: ReactElement
+    handler: Path['handler']
 }) => {
-    if (external)
+    if (type === 'external')
         return (
             <a href={location} className={style.link}>
                 {children}
             </a>
+        )
+    else if (type === 'handler')
+        return (
+            <span className={style.link} onClick={handler}>
+                {children}
+            </span>
         )
     else
         return (
@@ -34,7 +42,13 @@ const Lnk = ({
         )
 }
 
-const NavEntryContent = ({ label, icon, localImage, image }: Path) => {
+const NavEntryContent = ({
+    label,
+    icon,
+    localImage,
+    image,
+    mobile,
+}: Path & { mobile?: boolean }) => {
     return (
         <>
             {icon && <FontAwesomeIcon className={style.icon} icon={icon} />}
@@ -42,7 +56,7 @@ const NavEntryContent = ({ label, icon, localImage, image }: Path) => {
                 <img src={images[localImage]} alt="" className={style.img} />
             )}
             {image && <img src={image} alt="" className={style.img} />}
-            {label}
+            {!mobile && label}
         </>
     )
 }
@@ -52,12 +66,13 @@ const NavEntry = ({
     location,
     icon,
     localImage,
-    external,
+    type,
     image,
     subpaths,
     mobile,
+    handler,
 }: Path & { mobile?: boolean }) => {
-    if (!external) external = false
+    if (!type) type = 'internal'
 
     return (
         <li
@@ -70,14 +85,16 @@ const NavEntry = ({
                     target.classList.add(style.open)
                 else target.classList.remove(style.open)
             }}
+            title={label}
         >
-            <Lnk external={external} location={location}>
+            <Lnk type={type} location={location} handler={handler}>
                 <NavEntryContent
                     label={label}
                     location={location}
                     icon={icon}
                     localImage={localImage}
                     image={image}
+                    mobile={mobile}
                 />
             </Lnk>
             {subpaths && (
@@ -87,28 +104,7 @@ const NavEntry = ({
     )
 }
 
-const Navigation = ({ paths }: { paths: Path[] }) => {
-    const [mobile, setMobile] = useState<boolean>(false)
-
-    useEffect(() => {
-        let isMounted = true
-
-        const onResize = (e?: any) => {
-            if (!isMounted) return
-            if (window.innerWidth <= 650) setMobile(true)
-            else setMobile(false)
-        }
-
-        window.addEventListener('resize', onResize)
-
-        onResize()
-
-        return () => {
-            isMounted = false
-            window.removeEventListener('resize', onResize)
-        }
-    }, [])
-
+const Navigation = ({ paths, mobile }: { paths: Path[]; mobile: boolean }) => {
     return (
         <nav className={classnames(style.nav, mobile && style.mobile)}>
             <ul>{paths.map((props) => NavEntry({ ...props, mobile }))}</ul>

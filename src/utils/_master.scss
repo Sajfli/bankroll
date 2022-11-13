@@ -42,7 +42,13 @@ $standard_transition_time: 0.3s;
 // medias
 
 @mixin mobile {
-    @media screen and (max-width: 1000px) {
+    @media screen and (min-width: 501px) and (max-width: 1000px) {
+        @content;
+    }
+}
+
+@mixin min {
+    @media screen and (max-width: 500px) {
         @content;
     }
 }

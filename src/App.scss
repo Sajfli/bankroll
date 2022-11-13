@@ -64,6 +64,10 @@ a {
     cursor: grab !important;
 }
 
+.textCenter {
+    text-align: center;
+}
+
 // RWS
 @include m.mobile {
     :root {
@@ -73,5 +77,16 @@ a {
     .content {
         width: 100%;
         padding: 40px 20px;
+    }
+}
+
+@include m.min {
+    .content {
+        width: 100%;
+        padding: 40px 10px;
+    }
+
+    body {
+        overflow-x: auto;
     }
 }

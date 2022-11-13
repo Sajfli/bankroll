@@ -23,12 +23,6 @@ const ManageUsers = () => {
         return () => {
             if (!users || users.length < 1) return
 
-            // let direction = sorted?.direction || 'desc'
-            // if(sorted?.method === by) {
-            //     direction = direction === 'desc' ? 'asc' : 'desc'
-
-            // } else direction = 'desc'
-
             let direction: SortState['direction']
             if (!sorted || sorted.method !== by) direction = 'desc'
             else {
