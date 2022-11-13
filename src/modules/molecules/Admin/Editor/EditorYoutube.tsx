@@ -2,18 +2,12 @@ import Button from '@/modules/atoms/Button'
 import TextInput from '@/modules/atoms/TextInput'
 import { PropsForEditorSimple } from './EditorSimple'
 
-import style from './EditorInputs.scss'
-import useToast from '@/hooks/useToast'
 import { useEffect, useState } from 'react'
 import IFrame from '@/modules/atoms/IFrame'
 
 const EditorYoutube = ({ handler, value }: PropsForEditorSimple) => {
-    const toast = useToast()
-
     const [preview, setPreview] = useState<string>(value || '')
     const [allowPreview, setAllowPreview] = useState<boolean>(false)
-
-    //Xo8QvY0jOOE
 
     useEffect(() => {
         setAllowPreview(false)

@@ -1,7 +1,7 @@
 const IFrame = ({ src }: { src: string }) => {
     return (
         <iframe
-            src={`https://youtube.com/embed/${src}`}
+            src={`https://youtube.com/embed/${src}&origin=https://szymonjez.pl`}
             title="Film na youtube"
             width="560"
             height="315"
