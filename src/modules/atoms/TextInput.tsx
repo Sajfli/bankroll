@@ -40,7 +40,8 @@ const TextInput = ({
 
     useEffect(() => {
         if (!!handleInput) handleInput(value)
-    }, [value, handleInput])
+        // eslint-disable-next-line
+    }, [value])
 
     const val = _value || value
     const setVal = _setValue || setValue

@@ -15,7 +15,7 @@ const EdititArticle = () => {
         ;(async () => {
             try {
                 const response = await ky.get(
-                    `/api/v1/content/article/${params.article}`
+                    `/api/v1/content/article/${params.article}?panel=true`
                 )
 
                 const res = (await response.json()) as {

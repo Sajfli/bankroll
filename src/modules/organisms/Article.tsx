@@ -6,6 +6,7 @@ import LoaderScreen from '../molecules/LoaderScreen'
 
 import { ArticleContent, Article, ArticleContentValue } from '@/types/article'
 import './Article.scss'
+import IFrame from '../atoms/IFrame'
 
 const ListWrapper = ({
     type,
@@ -57,6 +58,12 @@ const ArticlePartElement = ({
                             </li>
                         ))}
                 </ListWrapper>
+            )
+        case 'youtube':
+            return (
+                <div>
+                    <IFrame src={value as string} />
+                </div>
             )
         case 'quote':
             return (

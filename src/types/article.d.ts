@@ -11,6 +11,7 @@ export type ValueTypes =
     | 'author'
     | 'module'
     | 'file'
+    | 'youtube'
 
 export type ContentTypes = 'part' | 'blockquote' | 'module'
 

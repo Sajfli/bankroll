@@ -435,6 +435,13 @@ const EditorBlock = ({
                         >
                             Dodaj rl
                         </Button>
+                        <Button
+                            onClick={() => {
+                                handleContentModify('add', 'youtube')
+                            }}
+                        >
+                            Dodaj YT
+                        </Button>
                     </div>
                 )}
             </div>

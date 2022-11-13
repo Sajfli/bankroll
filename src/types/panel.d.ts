@@ -3,6 +3,7 @@ import { Stage, User } from './utils'
 export type A_ArticleType = {
     name: string
     requiredStage: Stage
+    active: boolean
 }
 
 export type A_User<isDateParsed extends boolean> = {

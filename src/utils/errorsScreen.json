@@ -1,4 +1,5 @@
 {
+    "400": "Błędne zapytanie",
     "404": "Nie znaleziono",
     "403": "Nie masz dostępu do tego zasobu",
     "500": "Nieoczekiwany błąd serwera",

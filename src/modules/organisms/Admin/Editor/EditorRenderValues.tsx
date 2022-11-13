@@ -12,6 +12,7 @@ import EditorModule from '@/modules/molecules/Admin/Editor/EditorModule'
 import EditorImage from '@/modules/molecules/Admin/Editor/EditorImage'
 import EditorRl from '@/modules/molecules/Admin/Editor/EditorRl'
 import { ContentTypes } from '@/types/article'
+import EditorYoutube from '@/modules/molecules/Admin/Editor/EditorYoutube'
 
 const typeToRemoveMessage = (type: Editor.ContentValueType['type']) => {
     switch (type) {
@@ -129,6 +130,8 @@ const ContentTypeSelector = ({
                     leftRight={leftRight}
                 />
             )
+        case 'youtube':
+            return <EditorYoutube handler={handler} value={value as string} />
         default:
             return null
     }

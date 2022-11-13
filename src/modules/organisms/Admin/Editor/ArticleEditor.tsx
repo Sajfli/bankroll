@@ -158,6 +158,13 @@ const ArticleEditor = ({
                     },
                 })
                 break
+            case 'youtube':
+                _contents.value.push({
+                    type: 'youtube',
+                    id,
+                    value: '',
+                })
+                break
             default:
                 break
         }
