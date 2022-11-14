@@ -29,7 +29,6 @@ const cleanData = (
                     values: value.values,
                 })
             else if (value.type === 'image' || value.type === 'file') {
-                console.info(value.alreadyUploaded ? 'tak' : 'nie')
                 if (value.alreadyUploaded) {
                     cleaned.push({
                         id: value.id,
