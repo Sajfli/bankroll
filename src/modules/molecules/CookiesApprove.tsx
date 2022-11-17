@@ -35,7 +35,7 @@ const CookiesApprove = () => {
     }, [location, setBlur, setShow])
 
     const handleAccept = () => {
-        manageCookies.setCookie('accepted', 'true')
+        manageCookies.setCookie('accepted', 'true', 365)
         setShow(false)
         if (acceptCallback && typeof acceptCallback === 'function') {
             acceptCallback()

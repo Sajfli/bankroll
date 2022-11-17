@@ -12,11 +12,13 @@
     backdrop-filter: blur(4px);
 
     .buttons {
+        margin-top: 50px;
+
         display: flex;
         justify-content: center;
 
         button {
-            margin: 0 5px;
+            margin: 0 20px;
         }
     }
 }

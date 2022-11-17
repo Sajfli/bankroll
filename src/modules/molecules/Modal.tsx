@@ -1,6 +1,7 @@
 import classnames from 'classnames'
 import style from './Modal.module.scss'
 import useModal from '@/hooks/useModal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Modal = () => {
     const modal = useModal()
@@ -16,7 +17,13 @@ const Modal = () => {
             }}
         >
             <div className={classnames(style.modal)}>
-                <div className={style.bar}></div>
+                <div className={style.bar}>
+                    <FontAwesomeIcon
+                        icon="xmark"
+                        className="hover__red "
+                        onClick={modal.hide}
+                    />
+                </div>
                 <div className={style.content}>{modal.content}</div>
             </div>
         </div>
